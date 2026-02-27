@@ -1,6 +1,6 @@
 
 export const signup =  async (req, res) => {
-    res.send("Signup route is being called");
+   res.send("Signup route is being called");
 }
 export const login =  async (req, res) => {
     res.send("Login route is being called");
