@@ -3,7 +3,8 @@ import { redis } from "../lib/redis.js"
 import jwt from "jsonwebtoken"
 
 
-const generateTokens = async(userId) => {
+
+const generateTokens = (userId) => {
     const accessToken = jwt.sign({userId}, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "15m"
     })
@@ -15,8 +16,28 @@ const generateTokens = async(userId) => {
     return {accessToken, refreshToken}
 }
 
+
 const storedRefreshToken = async(userId, refreshToken) => {
-    await redis.set(`refresh_token: ${userId}`, refreshToken, "EX", 7*24*60*60)
+    await redis.set(`refresh_token: ${userId}`, refreshToken, "EX", 7 * 24 * 60 * 60)
+}
+
+const setCookies = (res, accessToken, refreshToken) => {
+
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000
+
+    })
+
+    res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+
+    })
 }
 
 export const signup =  async (req, res) => {
@@ -37,6 +58,8 @@ export const signup =  async (req, res) => {
 
         await storedRefreshToken(newUser._id, refreshToken)
 
+        setCookies(res, accessToken, refreshToken)
+
         res.status(201).json({
             newUser: {
                 _id: newUser._id,
@@ -56,7 +79,37 @@ export const signup =  async (req, res) => {
 
 }
 export const login =  async (req, res) => {
-    res.send("Login route is being called");
+    const { email, password } = req.body
+
+    try {
+
+        const foundUser = await User.findOne({ email })
+        const matchedPassword = await foundUser.comparePassword(password)
+
+        if(foundUser && matchedPassword) {
+
+            const { accessToken, refreshToken } = generateTokens(foundUser._id)
+            await storedRefreshToken(foundUser._id)
+            setCookies(res, accessToken, refreshToken)
+
+            res.status(200).json({
+            user: {
+                _id: foundUser._id,
+                name: foundUser.name,
+                email: foundUser.email,
+                role: foundUser.role,
+            },
+            message: "User logged in successfully"
+        })
+        }
+
+        res.status(401).json({ message: "User not found" })
+
+        
+        
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
 }
 export const logout =  async (req, res) => {
     res.send("Logout route is being called");
