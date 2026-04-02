@@ -87,7 +87,7 @@ export const deleteProduct =  async (req, res) => {
 export const getRecommended = async (req, res) => {
     try {
         
-        const recommended = Product.aggregate([
+        const recommended = await Product.aggregate([
             {
                 $sample: {size: 3}
             },
@@ -108,3 +108,5 @@ export const getRecommended = async (req, res) => {
         res.status(500).json({message: "Error with getRecommended function"})
     }
 }
+
+export const getByCategory =
