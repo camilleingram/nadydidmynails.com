@@ -1,10 +1,11 @@
 import express from "express"
 
-import {  } from "../controllers/product.controllers.js"
+import { getAllProducts, getFeaturedProducts } from "../controllers/product.controllers.js"
 import { protectRoute, adminRoute } from "./middlewares/auth.middlewares.js"
 
 const router = express.Router()
 
-// router.get("/", protectRoute, adminRoute, getAllProducts)
+router.get("/", protectRoute, adminRoute, getAllProducts)
+router.get("/featured", getFeaturedProducts)
 
 export default router
