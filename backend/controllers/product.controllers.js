@@ -109,4 +109,16 @@ export const getRecommended = async (req, res) => {
     }
 }
 
-export const getByCategory =
+export const getByCategory = async (req, res) => {
+    try {
+        const category = req.params.category
+
+        const products = await Product.find({category})
+
+        res.json(products)
+
+
+    } catch (error) {
+        res.status(500).json({message: "Error with getByCategory function"})
+    }
+}
