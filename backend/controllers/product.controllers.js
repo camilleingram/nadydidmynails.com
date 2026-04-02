@@ -122,3 +122,37 @@ export const getByCategory = async (req, res) => {
         res.status(500).json({message: "Error with getByCategory function"})
     }
 }
+
+export const toggleFeatured = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+
+        if(product) {
+            product.isFeatured = !product.isFeatured
+            const updatedProduct = await product.save()
+            
+            updatedCache()
+
+            res.json(updatedProduct)
+        }
+
+        res.status(404).json({message: "Product does not exist"})
+        
+    } catch (error) {
+        res.status(500).json({message: "Error with toggleFeatured function"})
+    }
+}
+
+const updatedCache = async (req, res) => {
+    try {
+        
+        const featuredProducts = await Product.find({isFeatured: true}).lean()
+
+        await redis.set("featured_products", JSON.stringify(featuredProducts))
+
+    } catch (error) {
+        res.status(500).json({message: "Error in updateCache function"})
+    }
+
+     
+}
