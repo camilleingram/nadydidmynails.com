@@ -1,7 +1,7 @@
 import express from "express"
 
 import { getAllProducts, getFeaturedProducts, createProduct, deleteProduct, getRecommended, getByCategory, toggleFeatured } from "../controllers/product.controllers.js"
-import { protectRoute, adminRoute } from "./middlewares/auth.middlewares.js"
+import { protectRoute, adminRoute } from "../middlewares/auth.middlewares.js"
 
 const router = express.Router()
 

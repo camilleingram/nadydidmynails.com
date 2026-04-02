@@ -1,7 +1,5 @@
-import User from "../models/user.model.js"
 import Product from "../models/product.model.js"
 import { redis } from "../lib/redis.js"
-import jwt from "jsonwebtoken"
 import cloudinary from "../lib/cloudinary.js"
 
 export const getAllProducts = async (req, res) => {
