@@ -87,3 +87,14 @@ const createStripeCoupon = async (discountPercentage) => {
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
+
+const createDbCoupon = async (userId) => {
+    const coupon = new Coupon({
+        code: "TEST",
+        discountPercentage: 25,
+        expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        userId: userId
+    })
+
+    return coupon
+}
