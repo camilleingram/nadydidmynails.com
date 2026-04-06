@@ -7,7 +7,10 @@ export const getCoupon = async (res, req) => {
         const foundCoupon = await Coupon.findOne({userId: user.id, isActive: true})
 
         if(foundCoupon) {
-            res.status(200).json({message: "Coupon found"}, foundCoupon)
+            res.status(200).json({
+                message: "Coupon found", 
+                coupon: foundCoupon
+            })
         }else {
             res.status(404).json({message: "Coupon not found"}, null)
         }
