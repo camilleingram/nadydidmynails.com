@@ -81,16 +81,25 @@ export const updateQuantity = async (req, res) => {
             if(quantity === 0) {
                 user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== itemToUpdate.id)
 
-                res.status(200).json({message: "Item deleted successfully"}, user.cartItems)
+                res.status(200).json({
+                    message: "Item deleted successfully",
+                    cartItems: user.cartItems
+                })
             }else {
                 itemToUpdate.quantity = quantity
-                res.status(200).json({message: "Item updated successfully"}, user.cartItems)
+                res.status(200).json({
+                    message: "Item updated successfully",
+                    cartItems: user.cartItems
+                })
             }
 
             await user.save()
             
         }else {
-            res.status(404).json({message: "Product not found"}, user.cartItems)
+            res.status(404).json({
+                message: "Product not found",
+                cartItems: user.cartItems
+            })
         }
 
         
