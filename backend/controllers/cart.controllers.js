@@ -54,16 +54,48 @@ export const deleteCart = async (req, res) => {
             
             res.status(204).json({message: "Cart cleared successfully"})
         } else {
-            user.cartItems = user.cartItems.filter(cartItem => cartItem.id === productId)
+            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId)
 
             res.status(200).json({message: "Cart updated successfully"})
         }
 
-        user.save()
+      await user.save()
         res.json(user.cartItems)
 
     } catch (error) {
         console.log("Error in deleteCart controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
+export const updateQuantity = async (req, res) => {
+    try {
+
+        const { id: productId } = req.params
+        const { quantity } = req.body
+        const user = req.user
+
+        const itemToUpdate = user.cartItems.find(cartItem => cartItem.id === productId )
+
+        if(itemToUpdate) {
+            if(quantity === 0) {
+                user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== itemToUpdate.id)
+
+                res.status(200).json({message: "Item deleted successfully"}, user.cartItems)
+            }else {
+                itemToUpdate.quantity = quantity
+                res.status(200).json({message: "Item updated successfully"}, user.cartItems)
+            }
+
+            await user.save()
+            
+        }else {
+            res.status(404).json({message: "Product not found"}, user.cartItems)
+        }
+
+        
+    } catch (error) {
+        console.log("Error in updateQuantity controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
