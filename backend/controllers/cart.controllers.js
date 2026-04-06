@@ -10,7 +10,10 @@ export const getCart = async (req, res) => {
             return {...product.toJSON(), quantity: item.quantity}
         })
 
-        res.status(200).json({message: "Cart items pulled successfully"}, cartItems)
+        res.status(200).json({
+            message: "Cart items pulled successfully",
+            cartItems: cartItems
+        })
     } catch (error) {
         console.log("Error in getCart controller")
         res.status(500).json({message: error.message})
@@ -35,7 +38,10 @@ export const addToCart = async (req, res) => {
         }
 
         await user.save()
-        res.status(201).json({message: "Item added to cart successfully"}, cartItems)
+        res.status(201).json({
+            message: "Item added to cart successfully", 
+            cartItems: cartItems
+        })
 
     } catch (error) {
         console.log("Error in addToCart controller", error.message)
@@ -59,7 +65,7 @@ export const deleteCart = async (req, res) => {
             res.status(200).json({message: "Cart updated successfully"})
         }
 
-      await user.save()
+        await user.save()
         res.json(user.cartItems)
 
     } catch (error) {
