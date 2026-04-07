@@ -78,6 +78,41 @@ export const createCheckoutSession = async (req, res) => {
     }
 }
 
+export const checkoutSuccess = async (req, res) => {
+    try {
+       const { sessionId } = req.body
+       
+       const session = await Stripe.checkout.sessions.retrieve(sessionId)
+
+       if (session.payment_status === "paid") {
+        if(session.metadata.couponCode) {
+            await Coupon.findOneAndUpdate({code: session.metadata.couponCode, userId: session.metadata.userId}, {isActive: false})
+        }
+
+        const products = JSON.parse(session.metadata.products)
+
+        const order = new Order({
+            user: session.metadata.userId,
+            products: products.map((product) => {
+                return {
+                    product: product._id,
+                    quantity: product.quantity,
+                    price: product.price
+                }
+            }),
+            totalAmount: session.amount_total / 100,
+            stripeSessionId: session.id
+        })
+
+        await order.save()
+        res.status(201).json({message: "Payment successful, New order created, coupon deactivated", order: order})
+       }
+    } catch (error) {
+        console.log("Error in checkoutSuccess controller")
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
 const createStripeCoupon = async (discountPercentage) => {
     try {
         const coupon = await Stripe.coupons.create({
@@ -95,14 +130,22 @@ const createStripeCoupon = async (discountPercentage) => {
 }
 
 const createDbCoupon = async (userId) => {
-    const coupon = new Coupon({
-        code: "TEST",
-        discountPercentage: 25,
-        expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        userId: userId
-    })
+    try {
+        const coupon = new Coupon({
+            code: "TEST",
+            discountPercentage: 25,
+            expirationDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            userId: userId
+        })
 
-    await coupon.save()
+        await coupon.save()
+        res.status(201).json({message: "Coupon created successfully", coupon: coupon})
 
-    return coupon
+        return coupon
+        
+    } catch (error) {
+        console.log("Error in createDbCoupon helper function")
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+    
 }
