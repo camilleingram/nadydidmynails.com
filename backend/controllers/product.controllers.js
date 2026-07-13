@@ -77,32 +77,32 @@ export const deleteProduct =  async (req, res) => {
     }
 }
 
-export const getRecommended = async (req, res) => {
-    try {
+// export const getRecommended = async (req, res) => {
+//     try {
         
-        const recommended = await Product.aggregate([
-            {
-                $sample: {size: 3}
-            },
-            {
-                $project: {
-                    _id: 1,
-                    name: 1,
-                    price: 1,
-                    image: 1,
-                    description: 1
-                }
-            }
-        ])
+//         const recommended = await Product.aggregate([
+//             {
+//                 $sample: {size: 3}
+//             },
+//             {
+//                 $project: {
+//                     _id: 1,
+//                     name: 1,
+//                     price: 1,
+//                     image: 1,
+//                     description: 1
+//                 }
+//             }
+//         ])
 
-        res.json(recommended)
+//         res.json(recommended)
 
-    } catch (error) {
-        res.status(500).json({message: "Error with getRecommended function"})
-    }
-}
+//     } catch (error) {
+//         res.status(500).json({message: "Error with getRecommended function"})
+//     }
+// }
 
-export const getByCategory = async (req, res) => {
+export const getByCollection = async (req, res) => {
     try {
         const {category} = req.params
 
@@ -116,36 +116,36 @@ export const getByCategory = async (req, res) => {
     }
 }
 
-export const toggleFeatured = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id)
+// export const toggleFeatured = async (req, res) => {
+//     try {
+//         const product = await Product.findById(req.params.id)
 
-        if(product) {
-            product.isFeatured = !product.isFeatured
-            const updatedProduct = await product.save()
+//         if(product) {
+//             product.isFeatured = !product.isFeatured
+//             const updatedProduct = await product.save()
             
-            updatedCache()
+//             updatedCache()
 
-            res.json(updatedProduct)
-        }
+//             res.json(updatedProduct)
+//         }
 
-        res.status(404).json({message: "Product does not exist"})
+//         res.status(404).json({message: "Product does not exist"})
         
-    } catch (error) {
-        res.status(500).json({message: "Error with toggleFeatured function"})
-    }
-}
+//     } catch (error) {
+//         res.status(500).json({message: "Error with toggleFeatured function"})
+//     }
+// }
 
-const updatedCache = async (req, res) => {
-    try {
+// const updatedCache = async (req, res) => {
+//     try {
         
-        const featuredProducts = await Product.find({isFeatured: true}).lean()
+//         const featuredProducts = await Product.find({isFeatured: true}).lean()
 
-        await redis.set("featured_products", JSON.stringify(featuredProducts))
+//         await redis.set("featured_products", JSON.stringify(featuredProducts))
 
-    } catch (error) {
-        res.status(500).json({message: "Error in updateCache function"})
-    }
+//     } catch (error) {
+//         res.status(500).json({message: "Error in updateCache function"})
+//     }
 
      
-}
+// }

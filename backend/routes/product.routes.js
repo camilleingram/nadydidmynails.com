@@ -6,9 +6,8 @@ import { protectRoute, adminRoute } from "../middlewares/auth.middlewares.js"
 const router = express.Router()
 
 router.get("/", protectRoute, adminRoute, getAllProducts)
-router.get("/featured", getFeaturedProducts)
 router.get("/recommended", getRecommended)
-router.get("/category/:category", getByCategory)
+router.get("/collection/:collection", getByCollection)
 router.post("/", protectRoute, adminRoute, createProduct)
 router.delete("/:id", protectRoute, adminRoute, deleteProduct)
 router.put("/:id", protectRoute, adminRoute, toggleFeatured)
