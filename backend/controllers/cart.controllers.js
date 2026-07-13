@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js"
+import User from "../models/user.model.js"
 
 export const getCart = async (req, res) => {
     try {
@@ -65,6 +66,25 @@ export const deleteCartItems = async (req, res) => {
 
     } catch (error) {
         console.log("Error in deleteCart controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
+export const clearCart = async (req, res) => {
+    try {
+
+        const { user } = req.body
+        
+        const foundUser = await User.findById(user.id)
+        
+        foundUser.cartItems = []
+
+        await foundUser.save()
+
+        res.status(200).json({message: "Cart cleared successfully"})
+
+    } catch {
+        console.log("Error in cartCart controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
