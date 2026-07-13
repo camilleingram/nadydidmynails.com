@@ -14,20 +14,42 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Product price is required"]
     },
-    image: {
+    images: [ {
         type: String,
-        required: [true, "Product image is required"]
-    },
-    category: {
-        type: String,
+        required: [true, "Images are required"]
+    }
+    ],
+    collection: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Collection",
         required: [true, "Product category is required"]
     },
-    isFeatured: {
-        type: Boolean,
-        required: false,
-        default: false,
+    color: {
+        colorName: {
+            type: String,
+            required: [true, "Color name is required"]
+        },
+        hexCode: {
+            type: String,
+            required: [true, "Hex code is required"]
+        }
+    },
+    shape: {
+        type: String,
+        enum: ["Square", "Stiletto", "Duck"],
+        required: [true, "Shape is required"]
+    },
+    length: {
+        type: String,
+        enum: ["XS", "S", "M", "L"],
+        required: [true, "Length is required"]
+    },
+    size: {
+        type: String,
+        enum: ["XS", "S", "M", "L", "XL"],
+        required: [true, "Size is required"]
+    },
 
-    }
 }, {
     timestamps: true
 })
