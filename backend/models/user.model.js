@@ -2,9 +2,13 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs"
 
 const userSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
-        required: [true, "Name is required"],
+        required: [true, "first name is required"],
+    },
+    lastName: {
+        type: String,
+        required: [true, "last name is required"],
     },
     password: {
         type: String,
@@ -17,6 +21,14 @@ const userSchema = new mongoose.Schema({
         unique: true,
         lowercase: true,
         trim: true
+    },
+    paymentMethodId :{
+        type: String,
+        required: false,
+        unique: true
+    },
+    phone: {
+        type: String,
     },
     cartItems:[
         {
@@ -32,8 +44,8 @@ const userSchema = new mongoose.Schema({
     ],
     role: {
         type: String,
-        enum: ["admin", "customer"],
-        default: "customer",
+        enum: ["admin", "guest", "member"],
+        default: "guest",
     }
     
 }, {
