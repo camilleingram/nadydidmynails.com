@@ -54,23 +54,23 @@ export const deleteProduct =  async (req, res) => {
             res.status(400).json({message: "Product not found"})
         }
 
-        if(product.image) {
-            const publicId = product.image.split("/").pop().split(".")[0]
+        if(product.images.length > 0) {
+            images.forEach(image => {
+                const publicId = product.image.split("/").pop().split(".")[0]
 
-            try {
-                
-                await cloudinary.uploader.destroy(`products/${publicId}`)
-                
-            } catch (error) {
-                res.status(400).json({message: "Unable to delete image"})
-            }
+                try {
+                    
+                    await cloudinary.uploader.destroy(`products/${publicId}`)
+                    
+                } catch (error) {
+                    res.status(400).json({message: "Unable to delete image"})
+                }
+            })
         }
 
         await Product.findByIdAndDelete(req.params.id)
 
         res.status(204).json({message: "Product deleted successfully"})
-
-
         
     } catch (error) {
         res.status(500).json({message: "Error with deleteProduct function"})
