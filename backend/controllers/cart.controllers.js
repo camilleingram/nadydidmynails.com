@@ -23,13 +23,13 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
     try {
-        const { productId } = req.body
-
-        const user = req.user
+        const { productId, color, length, shape, size, user } = req.body
 
         const products = await Product.find({})
 
-        const existingItem = user.cartItems.find(cartItem => cartItem.id === productId)
+        const Existingshape = await products.
+
+        const existingItem = user.cartItems.find((cartItem) => cartItem.id === productId && cartItem.color === color && cartItem.length === length && cartItem.shape === shape && cartItem.size === size)
 
         if(existingItem) {
             quantity += 1
