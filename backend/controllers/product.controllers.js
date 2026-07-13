@@ -113,7 +113,7 @@ export const getByCategory = async (req, res) => {
 
         const products = await Product.find({category})
 
-        res.json(products)
+        res.json({products})
 
 
     } catch (error) {
