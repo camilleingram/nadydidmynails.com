@@ -41,7 +41,7 @@ const setCookies = (res, accessToken, refreshToken) => {
 }
 
 export const signup =  async (req, res) => {
-    const {email, name, password} = req.body
+    const {firstName, lastname, email, password} = req.body
     try {
         
         const foundUser = await User.findOne({email})
@@ -51,7 +51,12 @@ export const signup =  async (req, res) => {
             res.status(400).json({message: "User already exists"})
         }
 
-        const newUser = await User.create({name, email, password})
+        const newUser = await User.create({firstName, lastName, email, password})
+
+        await User.updateOne({newUser}, {role: "member"})
+
+        await newUser.save()
+        
 
         //authentication
         const {accessToken, refreshToken} = generateTokens(newUser._id)
