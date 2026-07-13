@@ -27,8 +27,6 @@ export const addToCart = async (req, res) => {
 
         const products = await Product.find({})
 
-        const Existingshape = await products.
-
         const existingItem = user.cartItems.find((cartItem) => cartItem.id === productId && cartItem.color === color && cartItem.length === length && cartItem.shape === shape && cartItem.size === size)
 
         if(existingItem) {
@@ -49,20 +47,17 @@ export const addToCart = async (req, res) => {
     }
 }
 
-export const deleteCart = async (req, res) => {
+export const deleteCartItems = async (req, res) => {
     try {
-        const { productId } = req.body
+        const { productId, color, length, shape, size, user } = req.body
 
-        const user = req.user
-
-        if(!productId) {
-            user.cartItems = []
-            
-            res.status(204).json({message: "Cart cleared successfully"})
-        } else {
-            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId)
+        if(productId) {
+            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== color && cartItem.length !== length && cartItem.shape !== shape && cartItem.size !== size)
 
             res.status(200).json({message: "Cart updated successfully"})
+    
+        } else {
+            res.status(404).json({message: "Product not found"})
         }
 
         await user.save()
