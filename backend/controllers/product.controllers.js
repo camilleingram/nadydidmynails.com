@@ -11,37 +11,32 @@ export const getAllProducts = async (req, res) => {
     }
 }
 
-export const getFeaturedProducts = async (req, res) => {
-    try {
-        const featured = await Product.find({isFeatured: true})
-
-        if(featured) {
-            return res.status(200)
-        }
-
-        return res.status(404).json({message: "Featured products not found"})
-    } catch (error) {
-        res.status(500).json({message: error.message})
-    }
-}
-
 export const createProduct = async (req, res) => {
      try {
         
-        const {name, description, price, image, category} = req.body
+        const {name, collection, price, description, color, length, shape, size, images, } = req.body
 
         const cloudinaryResponse = null
 
-        if(image) {
-            await cloudinary.uploader.upload(image, {folder: products})
+        if(images.length <= 0) {
+            images.forEach(image => {
+                cloudinaryResponse = await cloudinary.uploader.upload(image, {folder: products})
+            });
+            
         }
 
         const product = await Product.create({
             name,
-            description,
+            collection,
             price,
-            image: cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : "",
-            category
+            description,
+            color,
+            length,
+            shape,
+            size,
+            images: images.forEach(image => {
+                cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : ""
+            }),
         })
 
         res.status(201).json(product, {message: "Product created successfully"})

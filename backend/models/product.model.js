@@ -6,23 +6,18 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, "Product name required"]
     },
-    description: {
-        type: String,
-        required: false
-    },
     price: {
         type: Number,
-        required: [true, "Product price is required"]
+        required: [true, "Product price required"]
     },
-    images: [ {
-        type: String,
-        required: [true, "Images are required"]
-    }
-    ],
     collection: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Collection",
         required: [true, "Product category is required"]
+    },
+    description: {
+        type: String,
+        required: false
     },
     color: {
         colorName: {
@@ -49,6 +44,11 @@ const productSchema = new mongoose.Schema({
         enum: ["XS", "S", "M", "L", "XL"],
         required: [true, "Size is required"]
     },
+    images: [ {
+        type: String,
+        required: [true, "Images are required"]
+    }
+    ],
 
 }, {
     timestamps: true

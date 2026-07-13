@@ -51,11 +51,7 @@ export const signup =  async (req, res) => {
             res.status(400).json({message: "User already exists"})
         }
 
-        const newUser = await User.create({firstName, lastName, email, password})
-
-        await User.updateOne({newUser}, {role: "member"})
-
-        await newUser.save()
+        const newUser = await User.create({firstName, lastName, email, password, role: "member"})
         
 
         //authentication
