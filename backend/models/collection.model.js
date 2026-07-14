@@ -11,9 +11,6 @@ const collectionSchema = new mongoose.Schema({
             ref: "Product"
         }
     ]
-
-    
-
 })
 
 const Collection = mongoose.model("Collection", collectionSchema)
