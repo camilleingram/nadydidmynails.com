@@ -25,7 +25,7 @@ export const getCollectionProducts = async (req, res) => {
 
         const { collection } = req.body
 
-        const collectionProducts = Products.find({collection: collection})
+        const collectionProducts = await Products.find({collection: collection})
 
         if(collectionProducts) {
             res.status(200).json({message: "Collection products found successfully"})
@@ -37,6 +37,22 @@ export const getCollectionProducts = async (req, res) => {
         
     } catch (error) {
        console.log("Error in getCollectionProducts controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message}) 
+    }
+}
+
+export const createCollection = async (req, res) => {
+    try {
+        const { name } = req.body
+        
+        const createdCollection = Collection.create({
+            name: name,
+            products: []
+        })
+
+        res.status(201),json(createdCollection, {message: "Collection created successfully"})
+    } catch (error) {
+        console.log("Error in createCollection controller", error.message)
         res.status(500).json({message: "Server error", error: error.message}) 
     }
 }
