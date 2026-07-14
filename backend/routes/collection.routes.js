@@ -9,7 +9,7 @@ const router = express.Router()
 router.get("/", getAllCollections)
 router.get("/products", getCollectionProducts)
 router.post("/", protectRoute, adminRoute, createCollection)
-router.delete("/:collection",protectRoute, adminRoute, deleteCollection)
+router.delete("/:name",protectRoute, adminRoute, deleteCollection)
 router.post("/products", protectRoute, adminRoute, addToCollection)
 
 
