@@ -1,16 +1,34 @@
 import mongoose from "mongoose"
 
 const couponSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
     code: {
         type: String,
         required: true,
         unique: true
+        
     },
-    discountPercentage: {
+    uses: {
         type: Number,
-        required: true,
-        min: 0,
-        max: 100
+        default: 0
+    },
+    discount: {
+        discountType: {
+            type: String,
+            enum: ["fixed amount", "percentage"],
+            required: true
+        },
+        discountAmount: {
+            type: Number,
+            required: true,
+        }
+    },
+    minValue: {
+        type: Number,
+        default: 0
     },
     expirationDate: {
         type: Date,
@@ -19,14 +37,21 @@ const couponSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         required: true,
-        defualt: true,
+        default: true,
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-        unique: true
-    }
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        }
+    ],
+    collections: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Collection"
+        }
+    ]
+    
 }, {
     timestamps: true
 })
