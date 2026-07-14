@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema({
         enum: ["Square", "Stiletto", "Duck"],
         required: [true, "Shape is required"]
     },
-    length: {
+    height: {
         type: String,
         enum: ["XS", "S", "M", "L"],
         required: [true, "Length is required"]

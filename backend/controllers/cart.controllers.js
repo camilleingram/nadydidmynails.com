@@ -24,14 +24,17 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
     try {
-        const { productId, color, length, shape, size, user } = req.body
+        const { productId } = req.body
 
         const products = await Product.find({})
 
-        const existingItem = user.cartItems.find((cartItem) => cartItem.id === productId && cartItem.color === color && cartItem.length === length && cartItem.shape === shape && cartItem.size === size)
+        const requestedProduct = await Product.find({productId})
+        const existingItem = user.cartItems.find((cartItem) => cartItem.id === productId )
 
         if(existingItem) {
-            quantity += 1
+            if(existingItem.color === requestedProduct.color && existingItem.shape === requestedProduct.shape && existingItem.height === requestedProduct.height && existingItem.size === requestedProduct.size) {
+                existingItem.quantity += 1
+            }
         } else {
             user.cartItems.push(productId)
         }
@@ -50,10 +53,12 @@ export const addToCart = async (req, res) => {
 
 export const deleteCartItems = async (req, res) => {
     try {
-        const { productId, color, length, shape, size, user } = req.body
+        const { productId } = req.body
+        
+        const requestedProductProduct = await Product.find({productId})
 
         if(productId) {
-            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== color && cartItem.length !== length && cartItem.shape !== shape && cartItem.size !== size)
+            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== requestedProduct.color && cartItem.shape !== requestedProduct.shape && cartItem.height !== requestedProduct.height && cartItem.size !== requestedProduct.size)
 
             res.status(200).json({message: "Cart updated successfully"})
     
@@ -74,7 +79,7 @@ export const clearCart = async (req, res) => {
     try {
 
         const { user } = req.body
-        
+
         const foundUser = await User.findById(user.id)
         
         foundUser.cartItems = []
