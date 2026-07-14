@@ -88,7 +88,7 @@ export const clearCart = async (req, res) => {
 
         res.status(200).json({message: "Cart cleared successfully"})
 
-    } catch {
+    } catch (error) {
         console.log("Error in cartCart controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
