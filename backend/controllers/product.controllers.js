@@ -104,15 +104,22 @@ export const deleteProduct =  async (req, res) => {
 
 export const getByCollection = async (req, res) => {
     try {
-        const {category} = req.params
+        const { collection: collection } = req.params
+        
 
-        const products = await Product.find({category})
+        const collectionProducts = await Product.find({id: {$in: collection.products}})
+        
+        if(collection && collectionProducts.length <= 0) {
+            res.status(200).json({message: "Products in category found successfully"})
+        } else {
+            res.status(400).json({message: "No products found in category"})
+        }
 
-        res.json({products})
+        res.json({collectionProducts})
 
 
     } catch (error) {
-        res.status(500).json({message: "Error with getByCategory function"})
+        res.status(500).json({message: "Error with getByCollection function"})
     }
 }
 
