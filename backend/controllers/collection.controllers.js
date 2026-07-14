@@ -1,4 +1,5 @@
 import Collection from "../models/collection.model.js"
+import { getAllProducts } from "./product.controllers.js"
 
 export const getAllCollections = async (req, res) => {
     try {
@@ -17,6 +18,25 @@ export const getAllCollections = async (req, res) => {
         console.log("Error in getAllCollections controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
-    
-    
+}
+
+export const getCollectionProducts = async (req, res) => {
+    try {
+
+        const { collection } = req.body
+
+        const collectionProducts = Products.find({collection: collection})
+
+        if(collectionProducts) {
+            res.status(200).json({message: "Collection products found successfully"})
+        } else {
+            res.status(400).json({message: "Collection products not found"})
+        }
+
+        res.json({collectionProducts})
+        
+    } catch (error) {
+       console.log("Error in getCollectionProducts controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message}) 
+    }
 }

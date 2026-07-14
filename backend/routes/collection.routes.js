@@ -10,6 +10,7 @@ router.get("/", getAllCollections)
 router.get("/products", getCollectionProducts)
 router.post("/", protectRoute, adminRoute, createCollection)
 router.delete("/:collection",protectRoute, adminRoute, deleteCollection)
-router.post("/:collection/products/:product", protectRoute, adminRoute, addToCollection)
+router.post("/products", protectRoute, adminRoute, addToCollection)
+
 
 export default router
