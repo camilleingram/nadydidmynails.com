@@ -53,12 +53,12 @@ export const addToCart = async (req, res) => {
 
 export const deleteCartItems = async (req, res) => {
     try {
-        const { productId } = req.body
+        const { id: productId } = req.params
         
-        const requestedProductProduct = await Product.find({productId})
+        const itemToDelete = await Product.find({productId})
 
-        if(productId) {
-            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== requestedProduct.color && cartItem.shape !== requestedProduct.shape && cartItem.height !== requestedProduct.height && cartItem.size !== requestedProduct.size)
+        if(itemToDelete) {
+            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== itemToDelete.color && cartItem.shape !== itemToDelete.shape && cartItem.height !== itemToDelete.height && cartItem.size !== itemToDelete.size)
 
             res.status(200).json({message: "Cart updated successfully"})
     
