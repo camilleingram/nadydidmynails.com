@@ -17,6 +17,24 @@ export const getAllCoupons = async (res, req) => {
      }
 }
 
+export const getOneCoupon = (req, res) => {
+    try {
+        
+        const { couponId } = req.params
+        const foundCoupon = await Coupon.findOneById(couponId)
+
+        if(foundCoupon) {
+            res.status(200).json(foundCoupon, {message: "Coupon found successfully"})
+        } else {
+            res.status(400).json({message: "Coupon not found"})
+        }
+
+    } catch (error) {
+        console.log("error in getOneCoupon controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
 export const validateCoupon = async (res, req) => {
      try {
         const {couponCode} = req.body
