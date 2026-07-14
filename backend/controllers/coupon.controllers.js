@@ -1,22 +1,18 @@
 import Coupon from "../models/coupon.model.js"
 
-export const getCoupon = async (res, req) => {
+export const getAllCoupons = async (res, req) => {
      try {
-        const user = req.user
+        
+        const coupons = await Coupon.find({})
 
-        const foundCoupon = await Coupon.findOne({userId: user.id, isActive: true})
-
-        if(foundCoupon) {
-            res.status(200).json({
-                message: "Coupon found", 
-                coupon: foundCoupon
-            })
+        if(coupons) {
+            res.status(200).json(coupons, {message: "Coupons found successfully"})
         }else {
-            res.status(404).json({message: "Coupon not found"}, null)
+            res.status(400).json({message: "Coupons not found"})
         }
         
      } catch (error) {
-        console.log("error in getCoupon controller", error.message)
+        console.log("error in getAllCoupons controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
      }
 }
