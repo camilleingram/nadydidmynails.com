@@ -43,13 +43,27 @@ export const getOneCoupon = (req, res) => {
 
 export const validateCoupon = async (res, req) => {
      try {
-        const {couponCode} = req.body
-        const user = req.user
+        const { couponCode } = req.body
+        const { user } = req.user
 
-        const foundCoupon = await Coupon.findOne({code: couponCode, userId: user._id, isActive: true })
+        const foundCoupon = await Coupon.findOne({code: couponCode, isActive: true })
+        const userCartItems = user.cartItems
+        const matchedProducts = userCartItems.map((cartItem) => {
+            foundCoupon.products.forEach((product) => product._id === cartItem._id)
+        })
+        const matchedCollections = userCartItems.map((cartItem) => {
+            foundCoupon.collections.forEach((collection) => collection._id === cartItem.collection)
+        })
+        
+        const totalPrice = 0 
+        
+        userCartItems.forEach((cartItem) => {
+            totalPrice += cartItem.price 
+        })
+
 
         if(!foundCoupon) {
-            return res.status(404).json({message: "Coupon not found"})
+            return res.status(400).json({message: "Coupon not found"})
         }
 
         if(foundCoupon.expirationDate < new Date()) {
@@ -62,11 +76,29 @@ export const validateCoupon = async (res, req) => {
             })
         }
 
+        if(!matchedProducts || !matchedCollections) {
+            return res.status(200).json({
+                message: "Cart not valid for items in cart",
+                coupon: foundCoupon
+            })
+        }
+
+        if(totalPrice < foundCoupon.minValue) {
+            return res.status(200).json({
+                message: "Cart total less than minimum value",
+                coupon: foundCoupon
+            })
+        }
+
+        foundCoupon.uses += 1
+        await coupon.save()
+
         res.status(200).json({
             message: "Coupon found and valid",
+            name: foundCoupon.name,
             code: couponCode,
-            discountPercentage: foundCoupon.discountPercentage
-
+            discountType: foundCoupon.discount.discountType,
+            discountAmount: foundCoupon.discount.discountAmount
         })
 
      } catch (error) {
