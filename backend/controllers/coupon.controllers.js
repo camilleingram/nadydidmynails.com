@@ -5,11 +5,14 @@ export const getAllCoupons = async (res, req) => {
         
         const coupons = await Coupon.find({})
 
-        if(coupons) {
-            res.status(200).json(coupons, {message: "Coupons found successfully"})
-        }else {
-            res.status(400).json({message: "Coupons not found"})
+        if(!coupons) {
+            return res.status(400),json({message: "Coupons not found"})
         }
+
+        return res.status(200).json({
+            message: "Coupons fetched successfully",
+            coupons: coupons
+        })
         
      } catch (error) {
         console.log("error in getAllCoupons controller", error.message)

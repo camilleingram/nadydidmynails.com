@@ -51,7 +51,6 @@ const couponSchema = new mongoose.Schema({
             ref: "Collection"
         }
     ]
-    
 }, {
     timestamps: true
 })
