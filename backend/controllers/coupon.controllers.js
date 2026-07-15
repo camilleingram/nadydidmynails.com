@@ -26,11 +26,14 @@ export const getOneCoupon = (req, res) => {
         const { couponId } = req.params
         const foundCoupon = await Coupon.findOneById(couponId)
 
-        if(foundCoupon) {
-            res.status(200).json(foundCoupon, {message: "Coupon found successfully"})
-        } else {
-            res.status(400).json({message: "Coupon not found"})
+        if(!foundCoupon) {
+            return res.status(400).json({message: "Coupon not found"})
         }
+
+        return res.status(200).json({
+            message: "Coupon fetched successfully",
+            coupon: foundCoupon
+        })
 
     } catch (error) {
         console.log("error in getOneCoupon controller", error.message)

@@ -5,9 +5,9 @@ import { getAllCoupons, getOneCoupon, createCoupon, deleteCoupon, updateCoupon }
 const router = express.Router()
 
 router.get("/", getAllCoupons)
-router.get("/:id", getOneCoupon)
+router.get("/:couponId", getOneCoupon)
 router.post("/", createCoupon)
-router.delete("/:id", deleteCoupon)
-router.put("/:id", updateCoupon)
+router.delete("/:couponId", deleteCoupon)
+router.put("/:couponId", updateCoupon)
 
 export default router
