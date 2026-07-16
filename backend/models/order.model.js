@@ -30,6 +30,69 @@ const orderSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
+    subtotalAmount: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+    discountAmount: {
+        type: Number,
+        required: true,
+        min: 0
+
+    },
+    shippingAddress: {
+        name: {
+            type: String,
+            required: true
+        },
+        street: {
+            type: String,
+            required: true
+        },
+        aptNumber: {
+            type: String,
+            required: false
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        },
+        zipCode: {
+            type: String,
+            required: true
+        }
+    },
+    billingAddress: {
+        name: {
+            type: String,
+            required: true
+        },
+        street: {
+            type: String,
+            required: true
+        },
+        aptNumber: {
+            type: String,
+            required: false
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        },
+        zipCode: {
+            type: String,
+            required: true
+        }
+    },
     stripeSessionId: {
         type: String,
         unique: true
