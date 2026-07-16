@@ -95,7 +95,8 @@ const orderSchema = new mongoose.Schema({
     },
     orderNumber: {
         type: Number,
-        required: true
+        required: true,
+        default: 1000
     },
     stripeSessionId: {
         type: String,

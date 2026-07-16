@@ -62,11 +62,17 @@ export const createCheckoutSession = async (req, res) => {
             payment_method_types: ["card", "afterpay_clearpay", "cashapp", "klarna", "paypal"],
             line_items: lineItems,
             mode: "payment",
-            automatic_tax: "enabled",
+            automatic_tax: {
+                enabled: true
+            },
+
             billing_address_collection: "auto",
             shipping_address_collection: {
                 allowed_countries: ["US", "CA"],
 
+            },
+            phone_number_collection: {
+                enabled: true
             },
             success_url: `${process.env.BASE_URL}/confirmation`,
             return_url: `${process.env.BASE_URL}/cart`,
@@ -112,27 +118,64 @@ export const createCheckoutSession = async (req, res) => {
 export const checkoutSuccess = async (req, res) => {
     try {
        const { sessionId } = req.body
+       const { user } = req.user
        
-       const session = await Stripe.checkout.sessions.retrieve(sessionId)
+       const session = await Stripe.checkout.sessions.retrieve(sessionId, {
+        expand: ["payment_intent.payment_method"]
+       })
+
 
        if (session.payment_status === "paid") {
         
             const products = JSON.parse(session.metadata.products)
 
+            const orderCount = await Order.countDocuments()
+            let orderNumber = 0
+            if(orderCount === 0) {
+                orderNumber = await Order.schema.path("orderNumber").default()
+            } else {
+                const lastestOrder = await Order.findOne().sort({createdAt: -1})
+                orderNumber =lastestOrder.orderNumber += 1
+            }
+
             const order = new Order({
             user: session.metadata.userId,
             products: products.map((product) => {
                 return {
-                    product: product._id,
+                    product: product.name,
                     quantity: product.quantity,
                     price: product.price
                 }
             }),
+            shippingAddress: {
+                name: session.collected_information.shipping_details.name ,
+                street: session.collected_information.shipping_details.address.line1,
+                aptNumber: session.collected_information.shipping_details.address.line2,
+                city: session.collected_information.shipping_details.address.city,
+                state: session.collected_information.shipping_details.address.state,
+                zipCode: session.collected_information.shipping_details.address.postal_code 
+            },
+            billingAddress: {
+                name: session.payment_intent.payment_method.billing_details.address.name ,
+                street: session.payment_intent.payment_method.billing_details.address.line1,
+                aptNumber: session.payment_intent.payment_method.billing_details.address.line2,
+                city: session.payment_intent.payment_method.billing_details.address.city,
+                state: session.payment_intent.payment_method.billing_details.address.state,
+                zipCode: session.payment_intent.payment_method.billing_details.address.postal_code
+            },
             totalAmount: session.amount_total / 100,
+            subtotalAmount: session.amount_subtotal / 100,
+            discountAmount:session.total_details.amount_discount / 100,
+            orderNumber: orderNumber,
             stripeSessionId: session.id
         })
 
         await order.save()
+
+        user.orders.push(order._id)
+        await user.save()
+
+
         res.status(201).json({message: "Payment successful, New order created, coupon deactivated", order: order})
        }
     } catch (error) {
