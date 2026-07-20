@@ -45,7 +45,7 @@ export const createCoupon = async (req, res) => {
     try {
         const { name, code,  discountType, discountAmount, minValue, expirationDate, products, collections} = req.body
 
-        const coupon = mongoose.Coupon.create({
+        const coupon = await Coupon.create({
             name: name,
             code: code,
             discountType: discountType,
@@ -63,6 +63,27 @@ export const createCoupon = async (req, res) => {
 
     } catch (error) {
         console.log("Error createCoupon controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
+export const deleteCoupon = async (req, res) => {
+    try {
+        const { couponId } = req.params
+
+        const couponToDelete = await Coupon.findByIdAndDelete(couponId)
+
+        if(!couponToDelete) {
+            res.status(400).json({message: "Coupon not found"})
+        }
+
+        res.status(200).json({
+            message: "Coupon deleted successfully",
+            coupons: coupons
+        })
+
+    } catch (error) {
+        console.log("Error in deleteCoupon controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
