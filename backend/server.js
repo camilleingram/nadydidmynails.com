@@ -9,6 +9,7 @@ import cartRoutes from "./routes/cart.routes.js"
 import couponRoutes from "./routes/coupon.routes.js"
 import collectionRoutes from "./routes/collection.routes.js"
 import paymentRoutes from "./routes/payment.route.js"
+import refundRoutes from "./routes/refund.routes.js"
 import { connectDB } from "./lib/db.js";
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use("/api/cart", cartRoutes)
 app.use("/api/coupons", couponRoutes)
 app.use("api/collections", collectionRoutes)
 app.use("/api/payments", paymentRoutes)
+app.use("/api/refunds", refundRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);

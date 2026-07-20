@@ -98,6 +98,11 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: 1000
     },
+    refunded: {
+        typ: Boolean,
+        required: false,
+        default: false
+    },
     stripeSessionId: {
         type: String,
         unique: true
