@@ -41,6 +41,32 @@ export const getOneCoupon = (req, res) => {
     }
 }
 
+export const createCoupon = async (req, res) => {
+    try {
+        const { name, code,  discountType, discountAmount, minValue, expirationDate, products, collections} = req.body
+
+        const coupon = mongoose.Coupon.create({
+            name: name,
+            code: code,
+            discountType: discountType,
+            discountAmount: discountAmount,
+            minValue: minValue,
+            expirationDate: expirationDate,
+            products: products,
+            collections: collections
+        })
+
+        res.status(201).json({
+            message: "Coupon created successfully",
+            coupon: coupon
+        })
+
+    } catch (error) {
+        console.log("Error createCoupon controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
 export const validateCoupon = async (res, req) => {
      try {
         const { couponCode } = req.body
@@ -49,10 +75,10 @@ export const validateCoupon = async (res, req) => {
         const foundCoupon = await Coupon.findOne({code: couponCode, isActive: true })
         const userCartItems = user.cartItems
         const matchedProducts = userCartItems.map((cartItem) => {
-            foundCoupon.products.forEach((product) => product._id === cartItem._id)
+            return foundCoupon.products.find((product) => product._id.equals(cartItem._id))
         })
         const matchedCollections = userCartItems.map((cartItem) => {
-            foundCoupon.collections.forEach((collection) => collection._id === cartItem.collection)
+            return foundCoupon.collections.find((collection) => collection._id.equals(cartItem.collection))
         })
         
         const totalPrice = 0 
@@ -76,7 +102,7 @@ export const validateCoupon = async (res, req) => {
             })
         }
 
-        if(!matchedProducts || !matchedCollections) {
+        if(!matchedProducts && !matchedCollections) {
             return res.status(200).json({
                 message: "Cart not valid for items in cart",
                 coupon: foundCoupon
@@ -91,7 +117,7 @@ export const validateCoupon = async (res, req) => {
         }
 
         foundCoupon.uses += 1
-        await coupon.save()
+        await foundCoupon.save()
 
         res.status(200).json({
             message: "Coupon found and valid",
