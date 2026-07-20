@@ -5,7 +5,7 @@ import { getAllRefunds, getOneRefund, createRefund, deleteRefund } from "../cont
 const router = express.Router()
 
 router.get("/", protectRoute, adminRoute, getAllRefunds)
-router.get("/", protectRoute, adminRoute, getOneRefund)
+router.get("/:refundId", protectRoute, adminRoute, getOneRefund)
 router.post("/", protectRoute, adminRoute, createRefund)
 router.delete("/:refundId", protectRoute, adminRoute, deleteRefund)
 
