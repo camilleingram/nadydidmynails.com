@@ -4,6 +4,9 @@ import { getAllRefunds, getOneRefund, createRefund, deleteRefund } from "../cont
 
 const router = express.Router()
 
-router.get
+router.get("/", protectRoute, adminRoute, getAllRefunds)
+router.get("/", protectRoute, adminRoute, getOneRefund)
+router.post("/", protectRoute, adminRoute, createRefund)
+router.delete("/:refundId", protectRoute, adminRoute, deleteRefund)
 
 export default router
