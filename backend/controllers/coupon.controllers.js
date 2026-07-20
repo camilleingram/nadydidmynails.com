@@ -88,6 +88,33 @@ export const deleteCoupon = async (req, res) => {
     }
 }
 
+export const updateCoupon = async (req, res) => {
+    try {
+        const { couponId } = req.params
+        const { updateData } = req.body
+
+        let couponToUpdate = await Coupon.findById(couponId)
+
+        if(!couponToUpdate) {
+            res.status(400).json({message: "Coupon not found"})
+        }
+
+        couponToUpdate = await Coupon.findByIdAndUpdate(couponId, updateData, {
+            new: true,
+        })
+
+
+        res.status(200).json({
+            message: "Coupon updated successfully",
+            coupon: couponToUpdate
+        })
+
+    } catch (error) {
+        console.log("Error in updateCoupon controller", error.message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
 export const validateCoupon = async (res, req) => {
      try {
         const { couponCode } = req.body
