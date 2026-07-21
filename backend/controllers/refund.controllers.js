@@ -21,3 +21,66 @@ export const getAllRefunds = async (req, res) => {
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
+
+export const getOneRefund = async (req, res) => {
+    try {
+
+        const { orderId } = req.params
+
+        const foundOrder = await Order.findById(orderId)
+
+        if(!foundOrder) {
+            res.status(400).json({message: "Order not found"})
+        }
+
+        const stripeSessionId = foundOrder.stripeSessionId
+
+        const session = await Stripe.checkout.sessions.retrieve(stripeSessionId, {
+        expand: ["paymentIntent"]
+       })
+
+        const paymenIntentId = session.payment_intent.id
+        
+    } catch (error) {
+        console.log("Error in getOneRefund controller", error,message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}
+
+export const createRefund = async (req, res) => {
+    try {
+        const { orderId } = req.body
+
+        const foundOrder = await Order.findById(orderId)
+
+        if(!foundOrder) {
+            return res.status(400).json({message: "Order not found"})
+        }
+
+        const stripeSessionId = foundOrder.stripeSessionId
+
+        const session = await Stripe.checkout.sessions.retrieve(stripeSessionId, {
+        expand: ["payment_intent"]
+       })
+
+        const paymentIntentId = session.payment_intent.id
+
+        const refund = await Stripe.refunds.create({
+            payment_intent: paymentIntentId,
+        })
+
+        foundOrder.refundId = refund.id
+        foundOrder.refundStatus = true
+
+        await foundOrder.save()
+
+        return res.status(200).json({
+            message: "Refund made successfully",
+            refund: refund
+        })
+
+    } catch (error) {
+        console.log("Error in getOneRefund controller", error,message)
+        res.status(500).json({message: "Server error", error: error.message})
+    }
+}

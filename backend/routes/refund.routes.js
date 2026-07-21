@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/", protectRoute, adminRoute, getAllRefunds)
 router.get("/:refundId", protectRoute, adminRoute, getOneRefund)
-router.post("/", protectRoute, adminRoute, createRefund)
+router.post("/", protectRoute, createRefund)
 router.delete("/:refundId", protectRoute, adminRoute, deleteRefund)
 
 export default router
