@@ -9,11 +9,11 @@ export const getAllRefunds = async (req, res) => {
         const refunds = await Order.find({refundStatus: true})
         
         if(!refunds) {
-            res.status(400).json({message: "No refunds found"})
+           return res.status(400).json({message: "No refunds found"})
         }
 
-        res.status(200).json({
-            message: "Refunds found successfully",
+        return res.status(200).json({
+            message: "Refunds fetched successfully",
             refunds: refunds
         })
     } catch (error) {
@@ -27,20 +27,16 @@ export const getOneRefund = async (req, res) => {
 
         const { orderId } = req.params
 
-        const foundOrder = await Order.findById(orderId)
+        const foundOrder = await Order.find({_id: orderId, refundStatus: true})
 
         if(!foundOrder) {
-            res.status(400).json({message: "Order not found"})
+            return res.status(400).json({message: "Order not found"})
         }
 
-        const stripeSessionId = foundOrder.stripeSessionId
-
-        const session = await Stripe.checkout.sessions.retrieve(stripeSessionId, {
-        expand: ["paymentIntent"]
-       })
-
-        const paymenIntentId = session.payment_intent.id
-        
+        return res.status(200).json({
+            message: "Refund fetched successfully",
+            refund : foundOrder
+        })
     } catch (error) {
         console.log("Error in getOneRefund controller", error,message)
         res.status(500).json({message: "Server error", error: error.message})
