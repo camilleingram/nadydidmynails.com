@@ -153,7 +153,8 @@ export const checkoutSuccess = async (req, res) => {
                 aptNumber: session.collected_information.shipping_details.address.line2,
                 city: session.collected_information.shipping_details.address.city,
                 state: session.collected_information.shipping_details.address.state,
-                zipCode: session.collected_information.shipping_details.address.postal_code 
+                zipCode: session.collected_information.shipping_details.address.postal_code,
+                country: session.collected_information.shipping_details.address.country
             },
             billingAddress: {
                 name: session.payment_intent.payment_method.billing_details.address.name ,
@@ -161,7 +162,8 @@ export const checkoutSuccess = async (req, res) => {
                 aptNumber: session.payment_intent.payment_method.billing_details.address.line2,
                 city: session.payment_intent.payment_method.billing_details.address.city,
                 state: session.payment_intent.payment_method.billing_details.address.state,
-                zipCode: session.payment_intent.payment_method.billing_details.address.postal_code
+                zipCode: session.payment_intent.payment_method.billing_details.address.postal_code,
+                country: session.payment_intent.payment_method.billing_details.address.country
             },
             totalAmount: session.amount_total / 100,
             subtotalAmount: session.amount_subtotal / 100,

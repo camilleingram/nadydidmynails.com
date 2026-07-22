@@ -65,6 +65,10 @@ const orderSchema = new mongoose.Schema({
         zipCode: {
             type: String,
             required: true
+        },
+        country: {
+            type: String,
+            required: true
         }
     },
     billingAddress: {
@@ -89,6 +93,10 @@ const orderSchema = new mongoose.Schema({
             required: true
         },
         zipCode: {
+            type: String,
+            required: true
+        },
+        country: {
             type: String,
             required: true
         }
