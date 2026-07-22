@@ -106,6 +106,23 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: 1000
     },
+    trackingNumber: {
+        type: String,
+        unique: true,
+        default: ""
+    },
+    trackingStatus: {
+        type: String,
+        default: ""
+    },
+    trackingURL: {
+        type: String,
+        default: ""
+    },
+    labelURL: {
+        type: String,
+        default: ""
+    },
     refundId: {
         type: String,
         unique: true

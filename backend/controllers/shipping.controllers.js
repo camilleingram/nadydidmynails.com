@@ -10,6 +10,10 @@ export const createShipLabel = async (req, res) => {
         const foundOrder = await Order.findById(orderId)
         const orderUser = await User.findById(foundOrder.user)
 
+        if(!foundOrder) {
+            return res.status(400).json({message: "Order not found"})
+        }
+
         const AddressFrom = {
             name: "Shawn Ippotle",
             company: "Shippo",
@@ -47,6 +51,12 @@ export const createShipLabel = async (req, res) => {
             addressFrom: addressFrom,
             addressTo: addressTo,
             parcels: [parcel],
+            extra: {
+                is_return: true,
+                authority_to_leave: true,
+                qr_code_requested: true,
+                saturday_deliverly: true,
+            }
         };
 
         const transaction = await shippo.transactions.create({
@@ -55,19 +65,22 @@ export const createShipLabel = async (req, res) => {
             servicelevelToken: ""
         });
 
-        
-        
+        if(transaction.status === "SUCCESS") {
+            foundOrder.labelURL = transaction.label_url
+            
+            // figuring out where to have the webhook for tracking
+            if(transaction.tracking_status === "PRE_TRANSIT") {
+                foundOrder.trackingStatus = transaction.tracking_status
+                foundOrder.trackingNumber = transaction.tracking_number
+                foundOrder.trackingURL = transaction.tracking_url_provider
+            }
+            await foundOrder.save()
+            return res.status(201).json({message: "Shipping label created successfully"})
+        }
+
     } catch (error) {
         console.log("Error in createShipLabel controller")
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
 
-export const trackAnOrder = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        console.log("Error in createShipLabel controller")
-        res.status(500).json({message: "Server error", error: error.message})
-    }
-}
