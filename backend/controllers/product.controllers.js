@@ -44,15 +44,14 @@ export const getOneProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
      try {
         
-        const {name, collection, price, description, color, length, shape, size, images, } = req.body
+        const {name, collection, price, description, color, length, shape, size, images} = req.body
 
         const cloudinaryResponse = null
 
-        if(images.length <= 0) {
+        if(images.length > 0) {
             images.forEach(image => {
                 cloudinaryResponse = await cloudinary.uploader.upload(image, {folder: products})
             });
-            
         }
 
         const product = await Product.create({
@@ -65,14 +64,19 @@ export const createProduct = async (req, res) => {
             shape,
             size,
             images: images.forEach(image => {
+                //check inside of a check(if cloudinary has secure url save it to images if not send empty string)
                 cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : ""
             }),
         })
 
-        res.status(201).json(product, {message: "Product created successfully"})
+        return res.status(201).json({
+            message: "Product created successfully",
+            product: product
+        })
 
      } catch (error) {
-        res.status(500).json({message: "Error with createProduct function"})
+        console.log("Error in createProduct controller", error.message)
+        res.status(500).json({message: error.message})
      }
 }
 
