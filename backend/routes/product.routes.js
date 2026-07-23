@@ -1,15 +1,17 @@
 import express from "express"
 
-import { getAllProducts, createProduct, deleteProduct, getByCategory,} from "../controllers/product.controllers.js"
+import { getAllProducts, getOneProduct, createProduct, deleteProduct, getByCollection, updateProduct} from "../controllers/product.controllers.js"
 import { protectRoute, adminRoute } from "../middlewares/auth.middlewares.js"
 
 const router = express.Router()
 
 router.get("/", getAllProducts)
+router.get("/:productId", getOneProduct)
 // router.get("/recommended", getRecommended)
-router.get("/collection/:collection", getByCollection)
+router.get("/collection/:collectionName", getByCollection)
 router.post("/", protectRoute, adminRoute, createProduct)
-router.delete("/:id", protectRoute, adminRoute, deleteProduct)
+router.delete("/:productId", protectRoute, adminRoute, deleteProduct)
+router.put("/:productId", protectRoute, adminRoute, updateProduct)
 // router.put("/:id", protectRoute, adminRoute, toggleFeatured)
 
 
