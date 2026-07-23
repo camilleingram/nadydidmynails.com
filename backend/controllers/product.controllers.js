@@ -115,6 +115,32 @@ export const deleteProduct =  async (req, res) => {
     }
 }
 
+export const updateProduct = async (req, res) => {
+    try {
+        const { productId } = req.params
+        const { updateData } = req.body
+
+        let updatedProduct = await Product.findById(productId)
+
+        if(!updatedProduct) {
+            return res.status(400).json({message: "Product not found"})
+        }
+
+        updatedProduct = await Product.findByIdAndUpdate(productId, updateData, {
+            new: true,
+        })
+
+        return res.status(200).json({
+            message: "Product was updated successfully",
+            product: updatedProduct
+        })
+
+    } catch (error) {
+        console.log("Error in updateProduct controller", error.message)
+        res.status(500).json({message: error.message})
+    }
+}
+
 // export const getRecommended = async (req, res) => {
 //     try {
         
