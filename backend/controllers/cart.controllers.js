@@ -3,16 +3,21 @@ import User from "../models/user.model.js"
 
 export const getCart = async (req, res) => {
     try {
-        const products = await Product.find({id: {$in: req.user.cartItems}})
+        const { user } = req.user
+        const products = await Product.find({id: {$in: user.cartItems}})
+
+        if(!products || !Array.isArray(products)) {
+            return res.status(400).json({message: "Products not found"})
+        }
 
         const cartItems = products.map((product) => {
-            const item = req.user.cartItems.find(cartItem => cartItem.id === product.id)
+            const item = user.cartItems.find((cartItem) => cartItem.id === product.id)
 
             return {...product.toJSON(), quantity: item.quantity}
         })
 
-        res.status(200).json({
-            message: "Cart items pulled successfully",
+        return res.status(200).json({
+            message: "Cart items fetched successfully",
             cartItems: cartItems
         })
     } catch (error) {
