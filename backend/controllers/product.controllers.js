@@ -82,32 +82,35 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct =  async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id)
 
-        if(!product) {
-            res.status(400).json({message: "Product not found"})
+        const { productId } = req.params
+        const productToDelete = await Product.findById(productId)
+
+        if(!productToDelete) {
+            return res.status(400).json({message: "Product not found"})
         }
 
-        if(product.images.length > 0) {
-            images.forEach(image => {
-                const publicId = product.image.split("/").pop().split(".")[0]
-
-                try {
-                    
-                    await cloudinary.uploader.destroy(`products/${publicId}`)
-                    
-                } catch (error) {
-                    res.status(400).json({message: "Unable to delete image"})
-                }
-            })
+        if(productToDelete.images.length <= 0) {
+            return res.status(400).json({message: "Images not found"})
         }
 
-        await Product.findByIdAndDelete(req.params.id)
+        images.forEach(image => {
+            const publicId = productToDelete.image.split("/").pop().split(".")[0]
+            try {
+                await cloudinary.uploader.destroy(`products/${publicId}`)
+                    
+            } catch (error) {
+                return res.status(400).json({message: "Unable to delete image"})
+            }
+        })
 
-        res.status(204).json({message: "Product deleted successfully"})
+        await Product.findByIdAndDelete(productId)
+
+        return res.status(204).json({message: "Product deleted successfully"})
         
     } catch (error) {
-        res.status(500).json({message: "Error with deleteProduct function"})
+        console.log("Error in deleteProduct controller", error.message)
+        res.status(500).json({message: error.message})
     }
 }
 
