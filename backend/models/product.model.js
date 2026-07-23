@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: false
     },
     color: {
         colorName: {
@@ -44,10 +43,11 @@ const productSchema = new mongoose.Schema({
         enum: ["XS", "S", "M", "L", "XL"],
         required: [true, "Size is required"]
     },
-    images: [ {
-        type: String,
-        required: [true, "Images are required"]
-    }
+    images: [ 
+        {
+            type: String,
+            required: [true, "Images are required"]
+        }
     ],
 
 }, {

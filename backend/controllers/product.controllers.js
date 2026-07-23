@@ -1,6 +1,7 @@
 import Product from "../models/product.model.js"
 import { redis } from "../lib/redis.js"
 import cloudinary from "../lib/cloudinary.js"
+import Collection from "../models/collection.model.js"
 
 export const getAllProducts = async (req, res) => {
     try {
@@ -141,22 +142,28 @@ export const deleteProduct =  async (req, res) => {
 
 export const getByCollection = async (req, res) => {
     try {
-        const { collection: collection } = req.params
+        const { collectionName } = req.params
         
+        const foundCollection = await Collection.findOne({name: collectionName })
 
-        const collectionProducts = await Product.find({id: {$in: collection.products}})
-        
-        if(collection && collectionProducts.length <= 0) {
-            res.status(200).json({message: "Products in category found successfully"})
-        } else {
-            res.status(400).json({message: "No products found in category"})
+        if(!foundCollection) {
+            return res.status(400).json({message: "Collection not found"})
         }
-
-        res.json({collectionProducts})
-
+        
+        const collectionProducts = await Product.find({id: {$in: foundCollection.products}})
+        
+        if(collectionProducts.length <= 0) {
+            return res.status(400).json({message: "Collection products not found"})
+        }
+        
+        return res.status(200).json({
+            message: "Collection products fetched successfully",
+            collectionProducts: collectionProducts
+        })
 
     } catch (error) {
-        res.status(500).json({message: "Error with getByCollection function"})
+        console.log("Error in getByCollection controller", error.message)
+        res.status(500).json({message: error.message})
     }
 }
 
