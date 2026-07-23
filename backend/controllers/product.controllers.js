@@ -20,6 +20,27 @@ export const getAllProducts = async (req, res) => {
     }
 }
 
+export const getOneProduct = async (req, res) => {
+    try {
+
+        const { productId } = req.params
+        const foundProduct = await Product.findById(productId)
+
+        if(!foundProduct) {
+            return res.status(400).json({message: "Product not found"})
+        }
+
+        return res.status(200).json({
+            message: "Product fetched successfully",
+            product: foundProduct
+        })
+
+    } catch(error) {
+        console.log("Error in getAllProducts controller", error.message)
+        res.status(500).json({message: error.message})
+    }
+}
+
 export const createProduct = async (req, res) => {
      try {
         
