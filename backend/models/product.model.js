@@ -18,16 +18,18 @@ const productSchema = new mongoose.Schema({
     description: {
         type: String,
     },
-    color: {
-        colorName: {
-            type: String,
-            required: [true, "Color name is required"]
-        },
-        hexCode: {
-            type: String,
-            required: [true, "Hex code is required"]
+    colors: [
+        {
+            colorName: {
+                type: String,
+                required: [true, "Color name is required"]
+            },
+            hexCode: {
+                type: String,
+                required: [true, "Hex code is required"]
+            }
         }
-    },
+    ],
     shape: {
         type: String,
         enum: ["Square", "Stiletto", "Duck"],

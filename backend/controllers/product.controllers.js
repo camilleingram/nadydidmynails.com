@@ -45,7 +45,7 @@ export const getOneProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
      try {
         
-        const {name, collection, price, description, color, length, shape, size, images} = req.body
+        const {name, collection, price, description, colors, length, shape, size, images} = req.body
 
         const cloudinaryResponse = null
 
@@ -60,7 +60,7 @@ export const createProduct = async (req, res) => {
             collection,
             price,
             description,
-            color,
+            colors,
             length,
             shape,
             size,
