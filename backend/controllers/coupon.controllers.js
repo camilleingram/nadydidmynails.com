@@ -123,20 +123,6 @@ export const validateCoupon = async (res, req) => {
         const { user } = req.user
 
         const foundCoupon = await Coupon.findOne({code: couponCode, isActive: true })
-        const userCartItems = user.cartItems
-        const matchedProducts = userCartItems.map((cartItem) => {
-            return foundCoupon.products.find((product) => product._id.equals(cartItem._id))
-        })
-        const matchedCollections = userCartItems.map((cartItem) => {
-            return foundCoupon.collections.find((collection) => collection._id.equals(cartItem.collection))
-        })
-        
-        const totalPrice = 0 
-        
-        userCartItems.forEach((cartItem) => {
-            totalPrice += cartItem.price 
-        })
-
 
         if(!foundCoupon) {
             return res.status(400).json({message: "Coupon not found"})
@@ -145,31 +131,41 @@ export const validateCoupon = async (res, req) => {
         if(foundCoupon.expirationDate < new Date()) {
             foundCoupon.isActive = false
             await foundCoupon.save()
-            return res.status(200).json({
-                message: "Coupon expired and deactivated",
-                coupon: foundCoupon
 
-            })
+            return res.status(400).json({message: "Coupon expired and deactivated"})
         }
+
+        const userCartItems = user.cartItems
+
+        const matchedProducts = userCartItems.map((cartItem) => {
+            return foundCoupon.products.find((product) => product._id.equals(cartItem.product))
+        })
+
+        const matchedCollections = userCartItems.map((cartItem) => {
+            return foundCoupon.collections.find((collection) => collection._id.equals(cartItem.collection))
+        })
 
         if(!matchedProducts && !matchedCollections) {
             return res.status(200).json({
-                message: "Cart not valid for items in cart",
+                message: "Coupon not valid for items in cart",
                 coupon: foundCoupon
             })
         }
 
-        if(totalPrice < foundCoupon.minValue) {
-            return res.status(200).json({
-                message: "Cart total less than minimum value",
-                coupon: foundCoupon
-            })
+        let subTotal = 0 
+        
+        userCartItems.forEach((cartItem) => {
+            subTotal += cartItem.price 
+        })
+
+        if(subTotal < foundCoupon.minValue) {
+            return res.status(400).json({message: "Cart total less than minimum value"})
         }
 
         foundCoupon.uses += 1
         await foundCoupon.save()
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Coupon found and valid",
             name: foundCoupon.name,
             code: couponCode,
