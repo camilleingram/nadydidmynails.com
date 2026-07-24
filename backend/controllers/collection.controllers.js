@@ -75,11 +75,13 @@ export const deleteCollection = async (req, res) => {
         const ItemToDelete = await Collection.findOne({name: name})
 
         if(!ItemToDelete) {
-            res.status(400).json({message: "Collection not found"})
+            return res.status(404).json({message: "Collection not found"})
         }
 
         await Collection.findOneAndDelete({name: name})
-        res.status(200).json({message: "Collection deleted successfully"})
+
+        return res.status(200).json({message: "Collection deleted successfully"})
+        
     } catch (error) {
         console.log("Error in deleteCollection controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
