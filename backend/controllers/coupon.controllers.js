@@ -58,7 +58,7 @@ export const createCoupon = async (req, res) => {
             collections: collections
         })
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "Coupon created successfully",
             coupon: coupon
         })
@@ -76,10 +76,10 @@ export const deleteCoupon = async (req, res) => {
         const couponToDelete = await Coupon.findByIdAndDelete(couponId)
 
         if(!couponToDelete) {
-            res.status(400).json({message: "Coupon not found"})
+            return res.status(400).json({message: "Coupon not found"})
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Coupon deleted successfully",
             coupons: coupons
         })
