@@ -43,13 +43,15 @@ export const getOneCoupon = (req, res) => {
 
 export const createCoupon = async (req, res) => {
     try {
-        const { name, code,  discountType, discountAmount, minValue, expirationDate, products, collections} = req.body
+        const { name, code, discount, minValue, expirationDate, products, collections} = req.body
 
         const coupon = await Coupon.create({
             name: name,
             code: code,
-            discountType: discountType,
-            discountAmount: discountAmount,
+            discount: {
+                discountType: discount.discountType,
+                discountAmount: discount.discountAmount
+            },
             minValue: minValue,
             expirationDate: expirationDate,
             products: products,

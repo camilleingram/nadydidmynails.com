@@ -56,14 +56,14 @@ export const createProduct = async (req, res) => {
         }
 
         const product = await Product.create({
-            name,
-            collection,
-            price,
-            description,
-            colors,
-            length,
-            shape,
-            size,
+            name: name,
+            collection: collection,
+            price: price,
+            description: description,
+            colors: colors,
+            length: length,
+            shape: shape,
+            size: size,
             images: images.forEach(image => {
                 //check inside of a check(if cloudinary has secure url save it to images if not send empty string)
                 cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : ""

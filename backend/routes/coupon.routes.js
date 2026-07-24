@@ -9,6 +9,6 @@ router.get("/:couponId", getOneCoupon)
 router.post("/", protectRoute, adminRoute, createCoupon)
 router.delete("/:couponId", protectRoute, adminRoute, deleteCoupon)
 router.put("/:couponId", protectRoute, adminRoute, updateCoupon)
-router.post("/validate/:couponId", protectRoute, adminRoute, validateCoupon)
+router.post("/validate/:couponId", validateCoupon)
 
 export default router
