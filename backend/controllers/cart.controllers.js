@@ -72,24 +72,26 @@ export const addToCart = async (req, res) => {
     }
 }
 
-export const deleteCartItems = async (req, res) => {
+export const deleteCartItem = async (req, res) => {
     try {
-        const { id: productId } = req.params
+        const { productId } = req.params
         
         const itemToDelete = await Product.find({productId})
 
-        if(itemToDelete) {
-            user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== productId && cartItem.color !== itemToDelete.color && cartItem.shape !== itemToDelete.shape && cartItem.height !== itemToDelete.height && cartItem.size !== itemToDelete.size)
+        if(!itemToDelete) {
 
-            res.status(200).json({message: "Cart updated successfully"})
-    
-        } else {
             res.status(404).json({message: "Product not found"})
-        }
+        } 
+
+        user.cartItems = user.cartItems.filter((cartItem) => !cartItem.product.equals(productId) && cartItem.color.colorName !== itemToDelete.color.colorName && cartItem.color.hexCode !== itemToDelete.color.hexCode && cartItem.shape !== itemToDelete.shape && cartItem.height !== itemToDelete.height && cartItem.size !== itemToDelete.size)
 
         await user.save()
-        res.json(user.cartItems)
 
+        res.status(200).json({
+            message: "Cart updated successfully",
+            cartItems: user.cartItems
+        })
+        
     } catch (error) {
         console.log("Error in deleteCart controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
