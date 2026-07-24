@@ -1,19 +1,19 @@
 import Collection from "../models/collection.model.js"
 import Product from "../models/product.model.js"
-import { getAllProducts } from "./product.controllers.js"
 
 export const getAllCollections = async (req, res) => {
     try {
 
         const collections = await Collection.find({})
 
-        if(collections) {
-            res.status(200).json({message: "Got collections list successfully"})
-        } else {
-            res.status(400).json({message: "No collections found"})
+        if(!collections) {
+           return res.status(400).json({message: "No collections found"})
         }
 
-        res.json(collections)
+        return res.status(200).json({
+            message: "Collections fetched successfully",
+            collections: collections
+        })
 
     } catch {
         console.log("Error in getAllCollections controller", error.message)
@@ -24,17 +24,18 @@ export const getAllCollections = async (req, res) => {
 export const getCollectionProducts = async (req, res) => {
     try {
 
-        const { collection } = req.body
+        const { collectionId } = req.body
 
-        const collectionProducts = await Products.find({collection: collection})
+        const collectionProducts = await Products.find({collection: collectionId})
 
-        if(collectionProducts) {
-            res.status(200).json({message: "Collection products found successfully"})
-        } else {
-            res.status(400).json({message: "Collection products not found"})
+        if(!collectionProducts) {
+            return res.status(400).json({message: "Collection products not found"})
         }
 
-        res.json({collectionProducts})
+        return res.status(200).json({
+            message: "Collection products found successfully",
+            collectionProducts: collectionProducts
+        })
         
     } catch (error) {
        console.log("Error in getCollectionProducts controller", error.message)
