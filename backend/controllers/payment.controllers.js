@@ -196,11 +196,12 @@ export const checkoutSuccess = async (req, res) => {
 const createStripeCoupon = async (couponCode) => {
     try {
         let stripeCoupon = null
+        
         const foundCoupon = await Coupon.findOne({code: couponCode})
 
         if(foundCoupon.discount.discountType == "fixed amount") {
             stripeCoupon = await Stripe.coupons.create({
-                id: foundCoupon._id,
+                id: foundCoupon._id.toString(),
                 amount_off: foundCoupon.discount.discountAmount,
                 currency: "usd",
                 duration: "once",
@@ -213,7 +214,7 @@ const createStripeCoupon = async (couponCode) => {
             })
         }else if(coupon.discount.discountType == "percentage") {
             stripeCoupon = await Stripe.coupons.create({
-                id: foundCoupon._id,
+                id: foundCoupon._id.toString(),
                 percent_off: foundCoupon.discount.discountAmount,
                 duration: "once",
                 currency: "usd",
@@ -228,7 +229,7 @@ const createStripeCoupon = async (couponCode) => {
 
         res.status(201).json({message: "Coupon created successfully"})
 
-        return foundCoupon._id
+        return foundCoupon._id.toString()
     } catch (error) {
         console.log("Error in createStripeCoupon helper function", error.message)
         res.status(500).json({message: "Server error", error: error.message})
