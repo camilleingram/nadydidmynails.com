@@ -80,14 +80,14 @@ export const deleteCartItem = async (req, res) => {
 
         if(!itemToDelete) {
 
-            res.status(404).json({message: "Product not found"})
+            return res.status(404).json({message: "Product not found"})
         } 
 
         user.cartItems = user.cartItems.filter((cartItem) => !cartItem.product.equals(productId) && cartItem.color.colorName !== itemToDelete.color.colorName && cartItem.color.hexCode !== itemToDelete.color.hexCode && cartItem.shape !== itemToDelete.shape && cartItem.height !== itemToDelete.height && cartItem.size !== itemToDelete.size)
 
         await user.save()
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Cart updated successfully",
             cartItems: user.cartItems
         })
@@ -102,12 +102,16 @@ export const clearCart = async (req, res) => {
     try {
 
         const { user } = req.user
+
+        if(user.cartItems.length === 0) {
+            return res.status(200).json({message: "Cart already empty"})
+        }
         
         user.cartItems = []
 
         await user.save()
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Cart cleared successfully",
             cartItems: user.cartItems
         })
@@ -121,37 +125,33 @@ export const clearCart = async (req, res) => {
 export const updateQuantity = async (req, res) => {
     try {
 
-        const { id: productId } = req.params
+        const { productId } = req.params
         const { quantity } = req.body
         const user = req.user
 
-        const itemToUpdate = user.cartItems.find(cartItem => cartItem.id === productId )
+        const itemToUpdate = user.cartItems.find((cartItem) => cartItem.product === productId )
 
-        if(itemToUpdate) {
-            if(quantity === 0) {
-                user.cartItems = user.cartItems.filter(cartItem => cartItem.id !== itemToUpdate.id)
-
-                res.status(200).json({
-                    message: "Item deleted successfully",
-                    cartItems: user.cartItems
-                })
-            }else {
-                itemToUpdate.quantity = quantity
-                res.status(200).json({
-                    message: "Item updated successfully",
-                    cartItems: user.cartItems
-                })
-            }
-
-            await user.save()
+        if(!itemToUpdate) {
             
-        }else {
-            res.status(404).json({
-                message: "Product not found",
+            return res.status(404).json({message: "Cart item not found"})
+        }
+
+        if(quantity === 0) {
+            user.cartItems = user.cartItems.filter((cartItem) => cartItem.product !== itemToUpdate.product)
+
+            return res.status(200).json({
+                message: "Item deleted successfully",
                 cartItems: user.cartItems
             })
         }
 
+        itemToUpdate.quantity = quantity
+        await user.save()
+
+        return res.status(200).json({
+            message: "Item updated successfully",
+            cartItems: user.cartItems
+        })
         
     } catch (error) {
         console.log("Error in updateQuantity controller", error.message)
