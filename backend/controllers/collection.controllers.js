@@ -95,15 +95,24 @@ export const addToCollection = async (req, res) => {
         const foundProduct = await Product.findById(productId)
         const foundCollection = await Collection.findOne({name: collectionName})
 
-        if(foundProduct && foundCollection) {
-            foundCollection.products.push(foundProduct)
-            res.status(200).json(collection, {message: "Product added to collection successfully"})
-        }else {
-            res.status(400).json({message: "Unable to add to collection"})
+        const existingProduct = foundCollection.products.find((product) => product.equals(productId))
+
+        if(existingProduct) {
+            return res.status(400).json({message: "Product already exists in collection"})
         }
 
-        await foundCollection.save()
-    
+        if(foundProduct && foundCollection) {
+            foundCollection.products.push(productId)
+            await foundCollection.save()
+
+            return res.status(200).json({
+                message: "Product added to collection successfully",
+                collection: foundCollection
+            })
+        }
+
+        return res.status(400).json({message: "Unable to add to collection"})
+        
     } catch (error) {
         console.log("Error in addToCollection controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
