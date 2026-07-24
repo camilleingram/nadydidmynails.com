@@ -101,15 +101,16 @@ export const deleteCartItem = async (req, res) => {
 export const clearCart = async (req, res) => {
     try {
 
-        const { user } = req.body
-
-        const foundUser = await User.findById(user.id)
+        const { user } = req.user
         
-        foundUser.cartItems = []
+        user.cartItems = []
 
-        await foundUser.save()
+        await user.save()
 
-        res.status(200).json({message: "Cart cleared successfully"})
+        res.status(200).json({
+            message: "Cart cleared successfully",
+            cartItems: user.cartItems
+        })
 
     } catch (error) {
         console.log("Error in cartCart controller", error.message)
