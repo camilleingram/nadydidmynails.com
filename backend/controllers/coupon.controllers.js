@@ -98,7 +98,7 @@ export const updateCoupon = async (req, res) => {
         let couponToUpdate = await Coupon.findById(couponId)
 
         if(!couponToUpdate) {
-            res.status(400).json({message: "Coupon not found"})
+            return res.status(400).json({message: "Coupon not found"})
         }
 
         couponToUpdate = await Coupon.findByIdAndUpdate(couponId, updateData, {
@@ -106,7 +106,7 @@ export const updateCoupon = async (req, res) => {
         })
 
 
-        res.status(200).json({
+        return res.status(200).json({
             message: "Coupon updated successfully",
             coupon: couponToUpdate
         })
