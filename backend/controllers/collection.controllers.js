@@ -50,7 +50,7 @@ export const createCollection = async (req, res) => {
         const exisitingCollection = await Collection.findOne({name: name})
 
         if(exisitingCollection) {
-            res.status(400).json({message: "Collection already exists"})
+            return res.status(400).json({message: "Collection already exists"})
         }
 
         const createdCollection = await Collection.create({
@@ -58,7 +58,10 @@ export const createCollection = async (req, res) => {
             products: []
         })
 
-        res.status(201),json(createdCollection, {message: "Collection created successfully"})
+        return res.status(201).json({
+            message: "Collection created successfully",
+            collection: exisitingCollection || createdCollection
+        })
     } catch (error) {
         console.log("Error in createCollection controller", error.message)
         res.status(500).json({message: "Server error", error: error.message}) 
