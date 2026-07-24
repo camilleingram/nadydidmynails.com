@@ -29,25 +29,41 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
     try {
-        const { productId } = req.body
+        //should I be getting id from params to know what specific item to add?
+        const { productId, size, shape, height, color } = req.body
+        const { user } = req.user
 
-        const products = await Product.find({})
+        const productToAdd = await Product.findById(productId)
 
-        const requestedProduct = await Product.find({productId})
-        const existingItem = user.cartItems.find((cartItem) => cartItem.id === productId )
+        if(!productToAdd) {
+            return res.status(400).json({message: "Product not found"})
+        }
+        
+        // i need to have the variants in the cart items and also get them from the req body
+        // wouldn't this be cartItem.product because an object id is being stored there?
+        const existingItem = user.cartItems.find((cartItem) => cartItem.product.equals(productId))
 
         if(existingItem) {
-            if(existingItem.color === requestedProduct.color && existingItem.shape === requestedProduct.shape && existingItem.height === requestedProduct.height && existingItem.size === requestedProduct.size) {
+            if(existingItem.size === size && existingItem.shape === shape && existingItem.height === height && existingItem.color.colorName === color.colorName && existingItem.color.hexCode === color.hexCode) {
                 existingItem.quantity += 1
             }
         } else {
-            user.cartItems.push(productId)
+            // how should i access the quantity field when exisiting item doesnt match?
+            user.cartItems.push({
+                product: productId,
+                size: size,
+                shape: shape,
+                height: height,
+                color: color
+            })
+            
         }
 
         await user.save()
-        res.status(201).json({
+
+        return res.status(201).json({
             message: "Item added to cart successfully", 
-            cartItems: cartItems
+            cartItems: user.cartItems
         })
 
     } catch (error) {

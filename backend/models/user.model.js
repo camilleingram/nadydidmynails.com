@@ -32,13 +32,35 @@ const userSchema = new mongoose.Schema({
     },
     cartItems:[
         {
-            quantity: {
-                type: Number,
-                default: 1
-            },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Product"
+            },
+            size: {
+                type: String,
+                required: true
+            },
+            shape: {
+                type: String,
+                required: true
+            },
+            height: {
+                type: String,
+                required: true
+            },
+            color: {
+                colorName: {
+                    type: String,
+                    required: true
+                },
+                hexCode: {
+                    type: String,
+                    required: true
+                }
+            },
+            quantity: {
+                type: Number,
+                default: 1
             }
         }
     ],
