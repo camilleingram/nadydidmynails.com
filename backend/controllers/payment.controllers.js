@@ -131,10 +131,13 @@ export const checkoutSuccess = async (req, res) => {
         expand: ["payment_intent.payment_method"]
        })
 
+       if(!session) {
+        return res.status(404).json({message: "Stripe session not found"})
+       }
 
        if (session.payment_status === "paid") {
         
-            const products = JSON.parse(session.metadata.products)
+            const cartItems = JSON.parse(session.metadata.cartItems)
 
             const orderCount = await Order.countDocuments()
             let orderNumber = 0
@@ -142,16 +145,20 @@ export const checkoutSuccess = async (req, res) => {
                 orderNumber = await Order.schema.path("orderNumber").default()
             } else {
                 const lastestOrder = await Order.findOne().sort({createdAt: -1})
-                orderNumber =lastestOrder.orderNumber += 1
+                orderNumber = lastestOrder.orderNumber += 1
             }
 
             const order = new Order({
-            user: session.metadata.userId,
-            products: products.map((product) => {
+            user: mongoose.Types.ObjectId(session.metadata.userId),
+            products: cartItems.map((cartItem) => {
                 return {
-                    product: product.name,
-                    quantity: product.quantity,
-                    price: product.price
+                    product: cartItem.name,
+                    quantity: cartItem.quantity,
+                    price: cartItem.price,
+                    shape: cartItem.shape,
+                    size: cartItem.shape,
+                    height: cartItem.height,
+                    colorName: cartItem.color.colorName
                 }
             }),
             shippingAddress: {
@@ -184,8 +191,7 @@ export const checkoutSuccess = async (req, res) => {
         user.orders.push(order._id)
         await user.save()
 
-
-        res.status(201).json({message: "Payment successful, New order created, coupon deactivated", order: order})
+        return res.status(201).json({message: "Payment successful, New order created", order: order})
        }
     } catch (error) {
         console.log("Error in checkoutSuccess controller")

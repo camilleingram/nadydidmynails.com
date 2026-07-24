@@ -22,6 +22,22 @@ const orderSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
                 min: 0
+            },
+            shape: {
+                type: String,
+                required: true
+            },
+            size: {
+                type: String,
+                required: true
+            },
+            height: {
+                type: String,
+                required: true
+            },
+            colorName: {
+                type: String,
+                required: true
             }
         }
     ],
