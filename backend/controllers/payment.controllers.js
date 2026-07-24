@@ -5,18 +5,21 @@ import Stripe from "../lib/stripe.js"
 
 export const createCheckoutSession = async (req, res) => {
     try {
-        const { cartItems, couponCode } = req.body
+        const { couponCode } = req.body
+        const { user } = req.user
+
+        const cartItems = user.cartItems
 
         if(!Array.isArray(cartItems) || cartItems.length === 0) {
-            return res.status(400).json({message: "Products is invalid or empty"})
+            return res.status(400).json({message: "Cart is invalid or empty"})
         }
 
-        const totalAmount = 0
+        let totalAmount = 0
 
         const lineItems = cartItems.map((cartItem) => {
-            const amount = cartItem.price * 100
-            totalAmount += amount * cartItem.quantity
-
+            let amountInCents = cartItem.price * 100
+            let lineItemTotal = amountInCents * cartItem.quantity
+            totalAmount += lineItemTotal
             return {
                 adjustable_quantity: "enabled",
                 quantity: cartItem.quantity,
@@ -24,20 +27,20 @@ export const createCheckoutSession = async (req, res) => {
                 price_data: {
                     currency: "usd",
                     tax_behavior: "exclusive",
-                    product: cartItem._id,
+                    product: cartItem.product.toString(),
                     product_data: {
                         name: cartItem.name,
                         images: cartItem.images,
                         metadata:{
-                            collection: cartItem.collection,
-                            color: cartItem.color,
+                            collection: cartItem.collection.toString,
+                            colorName: cartItem.color.colorName,
+                            hexCode: cartItem.color.hexCode,
                             height: cartItem.height,
                             size: cartItem.size,
                             shape: cartItem.shape,
                         }
                     },
-                    unit_amount: amount
-
+                    unit_amount: lineItemTotal
                 }
             }
         })
@@ -45,16 +48,22 @@ export const createCheckoutSession = async (req, res) => {
         let coupon = null
 
         if(couponCode) {
+            
             coupon = await Coupon.findOne({code: couponCode})
             
-            if(coupon) {
-                if(coupon.discount.discountType == "fixed amount") {
-                    totalAmount -= coupon.discount.discountAmount
-                }else if(coupon.discount.discountType == "percentage") {
-                    totalAmount -= totalAmount * (coupon.discount.discountAmount / 100)
-                }
-                return res.status(200).json({message: "Coupon applied"})
+            if(!coupon) {
+                return res.status(404).json({message: "Coupon not found"})
             }
+
+            if(coupon.discount.discountType == "fixed amount") {
+                    totalAmount -= coupon.discount.discountAmount
+            }else if(coupon.discount.discountType == "percentage") {
+                totalAmount -= totalAmount * (coupon.discount.discountAmount / 100)
+            }
+
+            // i dont think i need to stop the function just bc he coupon was applied
+            
+            // return res.status(200).json({message: "Coupon applied"})
         }
 
         const session = await Stripe.checkout.sessions.create({
@@ -65,11 +74,9 @@ export const createCheckoutSession = async (req, res) => {
             automatic_tax: {
                 enabled: true
             },
-
             billing_address_collection: "auto",
             shipping_address_collection: {
                 allowed_countries: ["US", "CA"],
-
             },
             phone_number_collection: {
                 enabled: true
@@ -88,9 +95,9 @@ export const createCheckoutSession = async (req, res) => {
                 cartItems: JSON.stringify(
                     cartItems.map((cartItem) => {
                         return {
-                            id: cartItem._id,
+                            id: cartItem.product.toString(),
                             name: cartItem.name,
-                            collection: cartItem.collection,
+                            collection: cartItem.collection.toString(),
                             color: cartItem.color,
                             height: cartItem.height,
                             size: cartItem.size,
@@ -103,7 +110,7 @@ export const createCheckoutSession = async (req, res) => {
             }
         })
 
-        return res.status(200).json({
+        return res.status(201).json({
             message: "Checkout session created successfully", 
             id: session.id, 
             totalAmount: totalAmount / 100 
