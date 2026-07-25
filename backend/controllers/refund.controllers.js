@@ -17,7 +17,7 @@ export const getAllRefunds = async (req, res) => {
             refunds: refunds
         })
     } catch (error) {
-        console.log("Error in getAllRefunds controller", error,message)
+        console.log("Error in getAllRefunds controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
@@ -63,6 +63,7 @@ export const createRefund = async (req, res) => {
 
         const refund = await Stripe.refunds.create({
             payment_intent: paymentIntentId,
+            // add metadata to include order details
         })
 
         foundOrder.refundId = refund.id
@@ -71,12 +72,12 @@ export const createRefund = async (req, res) => {
         await foundOrder.save()
 
         return res.status(200).json({
-            message: "Refund made successfully",
+            message: "Refund created successfully",
             refund: refund
         })
 
     } catch (error) {
-        console.log("Error in getOneRefund controller", error,message)
+        console.log("Error in getOneRefund controller", error.message)
         res.status(500).json({message: "Server error", error: error.message})
     }
 }
