@@ -14,6 +14,7 @@ export const createShipLabel = async (req, res) => {
             return res.status(400).json({message: "Order not found"})
         }
 
+        // need nadia to figure out address
         const AddressFrom = {
             name: "Shawn Ippotle",
             company: "Shippo",
@@ -38,6 +39,7 @@ export const createShipLabel = async (req, res) => {
             email: orderUser.email,
         }
 
+        // need nadia to figure out package dimensions
         const parcel = {
             length: "5",
             width: "5",
@@ -61,22 +63,17 @@ export const createShipLabel = async (req, res) => {
 
         const transaction = await shippo.transactions.create({
             shipment: shipment,
-            carrierAccount: [],
-            servicelevelToken: ""
+            // make an account for shippo
+            carrierAccount: ["3678b80905ea4a0493976218ccc2971c"]
         });
 
-        if(transaction.status === "SUCCESS") {
-            foundOrder.labelURL = transaction.label_url
-            
-            // figuring out where to have the webhook for tracking
-            if(transaction.tracking_status === "PRE_TRANSIT") {
-                foundOrder.trackingStatus = transaction.tracking_status
-                foundOrder.trackingNumber = transaction.tracking_number
-                foundOrder.trackingURL = transaction.tracking_url_provider
-            }
-            await foundOrder.save()
-            return res.status(201).json({message: "Shipping label created successfully"})
-        }
+        foundOrder.trackingStatus = transaction.tracking_status
+        foundOrder.trackingNumber = transaction.tracking_number
+        foundOrder.trackingURL = transaction.tracking_url_provider
+
+        await foundOrder.save()
+
+        return res.status(201).json({message: "Shipping label created successfully"})
 
     } catch (error) {
         console.log("Error in createShipLabel controller")
