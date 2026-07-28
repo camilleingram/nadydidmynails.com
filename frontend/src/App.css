@@ -2,16 +2,31 @@
 
 @theme {
     --color-off-white: #F1E5D6;
+    --color-burgundy: #82254F;
+
     
+}
+
+@font-face {
+    font-family: Merchant;
+    font-style: regular;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Regular.ttf") format("ttf")
+
+
 }
 
 * {
     margin: 0;
     padding: 0;
+    
 }
 
-html {
+body: {
     height: 100vh;
-    width: 100vw;
+    width: 100vw
 }
+
+
+
 
