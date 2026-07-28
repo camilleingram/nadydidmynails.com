@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import './App.css'
-import Home from ".."
+import Home from "./pages/Home.jsx"
+import { Routes, Route } from "react-router"
 
 function App() {
   
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={}/>
+        <Route path="/" element={<Home/>}/>
       </Routes>
     </>
   )
