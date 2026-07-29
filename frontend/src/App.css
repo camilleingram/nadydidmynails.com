@@ -4,28 +4,78 @@
     --color-off-white: #F1E5D6;
     --color-burgundy: #82254F;
 
-    
 }
 
 @font-face {
     font-family: Merchant;
-    font-style: regular;
+    font-style: normal;
+    font-weight: 100;
     font-display: swap;
-    src: url("./assets/fonts/Merchant-Regular.ttf") format("ttf")
-
-
+    src: url("./assets/fonts/Merchant-Thin.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-ExtraLight.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Light.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Regular.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Medium.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-SemiBold.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Bold.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-ExtraBold.ttf") format("truetype")
+}
+@font-face {
+    font-family: Merchant;
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url("./assets/fonts/Merchant-Black.ttf") format("truetype")
 }
 
 * {
     margin: 0;
-    padding: 0;
-    
+    padding: 0; 
 }
 
-body: {
-    height: 100vh;
-    width: 100vw
-}
+
 
 
 
