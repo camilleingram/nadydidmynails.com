@@ -3,6 +3,7 @@
 @theme {
     --color-off-white: #F1E5D6;
     --color-burgundy: #82254F;
+    --color-soft-black: #12110E
 
 }
 
@@ -70,10 +71,13 @@
     src: url("./assets/fonts/Merchant-Black.ttf") format("truetype")
 }
 
-* {
-    margin: 0;
-    padding: 0; 
+@layer base {
+    * {
+        margin: 0;
+        padding: 0; 
+    }
 }
+
 
 
 
