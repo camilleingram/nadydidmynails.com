@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Dr+Sugiyama&display=swap');
 @import "tailwindcss";
+
 
 @theme {
     --color-off-white: #F1E5D6;
     --color-burgundy: #82254F;
-    --color-soft-black: #12110E
+    --color-soft-black: #12110E;
+
+    --font-sugiyama: "Dr Sugiyama", cursive;
 
 }
 
@@ -70,6 +74,8 @@
     font-display: swap;
     src: url("./assets/fonts/Merchant-Black.ttf") format("truetype")
 }
+
+
 
 @layer base {
     * {
