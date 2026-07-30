@@ -6,6 +6,7 @@
     --color-off-white: #F1E5D6;
     --color-burgundy: #82254F;
     --color-soft-black: #12110E;
+    --color-main-green: #526B38;
 
     --font-sugiyama: "Dr Sugiyama", cursive;
 
@@ -81,6 +82,7 @@
     * {
         margin: 0;
         padding: 0; 
+        overflow: auto
     }
 }
 
