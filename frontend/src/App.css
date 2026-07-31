@@ -75,6 +75,13 @@
     font-display: swap;
     src: url("./assets/fonts/Merchant-Black.ttf") format("truetype")
 }
+@font-face {
+    font-family: Amoresa;
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("./assets/fonts/Amoresa Regular.otf") format("opentype")
+}
 
 
 

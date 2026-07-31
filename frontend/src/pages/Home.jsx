@@ -13,7 +13,7 @@ const Home = () => {
     <img src={homeImg} alt="Nails around a vinyl" className="h-[85%] w-screen"/>
 
     {/* container of all numbers */}
-    <div className="h-[8%] w-screen bg-main-green flex items-center gap-[2rem]">
+    <div className="h-[8%] w-screen bg-main-green flex items-center gap-[2rem] overflow-hidden">
       {/* container of 1 number */}
       <div className="w-[50%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">PICK YOUR SET</h3>
@@ -38,8 +38,6 @@ const Home = () => {
           <h4 className="font-[Merchant] text-main-green font-light">three</h4>
         </div>
       </div>
-      
-   
     </div>
 
    </div>
