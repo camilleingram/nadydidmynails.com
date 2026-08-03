@@ -42,10 +42,13 @@ const Home = () => {
       </div>
     </div>
 
-    <section className=" pl-4 pr-4 relative z-0">
+    <section className=" h-[70%] pl-4 pr-4 relative z-0">
       <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className="relative bottom-[0.75rem] right-[4rem]"/>
       <h2 className="font-[Amoresa] text-[2rem] relative bottom-[10rem]  ">Shop by Collection</h2>
-      <CollectionCard/>
+      <div className="h-[66%]">
+        <CollectionCard/>
+      </div>
+      
 
     </section>
    </div>

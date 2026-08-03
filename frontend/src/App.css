@@ -10,6 +10,8 @@
 
     --font-sugiyama: "Dr Sugiyama", cursive;
 
+    --background-image-cheetah-background: url('assets/cheetah-background.png')
+
 }
 
 @font-face {
