@@ -7,10 +7,15 @@
     --color-burgundy: #82254F;
     --color-soft-black: #12110E;
     --color-main-green: #526B38;
+    --color-light-green: #A8A152;
 
     --font-sugiyama: "Dr Sugiyama", cursive;
 
-    --background-image-cheetah-background: url('assets/cheetah-background.png')
+    --background-image-cheetah-background: url('assets/cheetah-background.png');
+    --backgorund-image-nails: url('assets/nail-circle.jpg')
+    --shadow-button: 0 4px 4px rgba(0, 0, 0, 0.5)
+
+    
 
 }
 

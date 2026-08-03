@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar.jsx"
 import CollectionCard from '../components/CollectionCard.jsx'
 import homeImg from "../assets/nails-holder_.jpeg"
 import hawaiianFlowerImg from "../assets/hawaiian-flower.svg"
+import dragonflyImg from "../assets/dragonfly.svg"
 
 const Home = () => {
   return (
@@ -42,13 +43,18 @@ const Home = () => {
       </div>
     </div>
 
-    <section className=" h-[70%] pl-4 pr-4 relative z-0">
-      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className="relative bottom-[0.75rem] right-[4rem]"/>
-      <h2 className="font-[Amoresa] text-[2rem] relative bottom-[10rem]  ">Shop by Collection</h2>
-      <div className="h-[66%]">
+    <section className=" h-[70%] pl-4 pr-4 relative z-0 flex flex-col">
+      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-[40%] w-[65%] relative bottom-[0.75rem] right-[4rem]"/>
+      <h2 className="font-[Amoresa] text-[2rem] relative bottom-[9.5rem]  ">Shop by Collection</h2>
+      <div className="h-[40%] w-full flex gap-[1.5rem] overflow-auto relative z-10 bottom-[7.5rem] shrink-0">
+        <CollectionCard/>
+        <CollectionCard/>
         <CollectionCard/>
       </div>
-      
+      <button type="button" className="bg-light-green self-center shrink-0 h-[9%] w-[60%] font-[Merchant] font-bold text-off-white text-[1rem] rounded-[0.375rem] relative z-10 bottom-[4.5rem] shadow-button">Shop the Collection</button>
+      <img src={dragonflyImg} alt="Dragonfly" className=" h-[40%] w-[65%] relative left-46 bottom-44 z-0"/>
+    </section>
+    <section className="h-[50%]">
 
     </section>
    </div>
