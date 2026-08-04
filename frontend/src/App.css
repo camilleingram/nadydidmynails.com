@@ -12,7 +12,8 @@
     --font-sugiyama: "Dr Sugiyama", cursive;
 
     --background-image-cheetah-background: url('assets/cheetah-background.png');
-    --backgorund-image-nails: url('assets/nail-circle.jpg')
+    --background-image-nails: url('assets/nail-circle.JPG');
+
     --shadow-button: 0 4px 4px rgba(0, 0, 0, 0.5)
 
     
@@ -96,6 +97,10 @@
     * {
         margin: 0;
         padding: 0; 
+    }
+
+    html{
+        background-color: #F1E5D6
     }
     
 }
