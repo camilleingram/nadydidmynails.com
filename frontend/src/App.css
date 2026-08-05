@@ -8,11 +8,12 @@
     --color-soft-black: #12110E;
     --color-main-green: #526B38;
     --color-light-green: #A8A152;
+    --color-brown: #7B563C;
 
     --font-sugiyama: "Dr Sugiyama", cursive;
 
     --background-image-cheetah-background: url('assets/cheetah-background.png');
-    --background-image-nails: url('assets/nail-circle.JPG');
+    --background-image-nails: url('assets/nails-circle.jpeg');
 
     --shadow-button: 0 4px 4px rgba(0, 0, 0, 0.5)
 
@@ -39,6 +40,7 @@
     font-style: normal;
     font-weight: 300;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-Light.ttf") format("truetype")
 }
 @font-face {
@@ -46,6 +48,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-Regular.ttf") format("truetype")
 }
 @font-face {
@@ -53,6 +56,7 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-Medium.ttf") format("truetype")
 }
 @font-face {
@@ -60,12 +64,14 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-SemiBold.ttf") format("truetype")
 }
 @font-face {
     font-family: Merchant;
     font-style: normal;
     font-weight: 700;
+    line-height: 1;
     font-display: swap;
     src: url("./assets/fonts/Merchant-Bold.ttf") format("truetype")
 }
@@ -74,6 +80,7 @@
     font-style: normal;
     font-weight: 800;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-ExtraBold.ttf") format("truetype")
 }
 @font-face {
@@ -81,6 +88,7 @@
     font-style: normal;
     font-weight: 900;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Merchant-Black.ttf") format("truetype")
 }
 @font-face {
@@ -88,6 +96,7 @@
     font-style: normal;
     font-weight: 400 700;
     font-display: swap;
+    line-height: 1;
     src: url("./assets/fonts/Amoresa Regular.otf") format("opentype")
 }
 
@@ -100,7 +109,7 @@
     }
 
     html{
-        background-color: #F1E5D6
+        background-color: #F1E5D6;
     }
     
 }
