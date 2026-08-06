@@ -4,6 +4,7 @@ import NavBar from "../components/NavBar.jsx"
 import CollectionCard from '../components/CollectionCard.jsx'
 import ItListCard from '../components/ItListCard.jsx'
 import MailingList from '../components/MailingList.jsx'
+import Footer from "../components/Footer.jsx"
 
 
 import homeImg from "../assets/nails-holder_.jpeg"
@@ -18,39 +19,39 @@ const Home = () => {
     <div className="h-[5%] bg-burgundy flex items-center justify-center">
       <h4 className="text-off-white text-[0.75rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
     </div>
-    <img src={homeImg} alt="Nails around a vinyl" className="h-[85%] w-screen"/>
+    <img src={homeImg} alt="Nails around a vinyl" className="h-[85%] md:h-[98%] w-screen"/>
 
     {/* container of all numbers */}
-    <div className="h-[8%] w-screen bg-main-green flex items-center gap-[2rem] overflow-hidden relative z-10">
+    <div className="h-[8%] w-screen bg-main-green flex items-center justify-center gap-8 overflow-hidden relative z-10">
       {/* container of 1 number */}
-      <div className="w-[50%] h-[90%] flex shrink-0 items-center justify-between">
+      <div className="w-[50%] md:w-[25%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">PICK YOUR SET</h3>
         {/* container of pill */}
-        <div className="w-[40%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[40%] md:w-[39%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">one</h4>
         </div>
       </div>
       {/* container of 1 number */}
-      <div className="w-[44%] h-[90%] flex shrink-0 items-center justify-between">
+      <div className="w-[44%] md:w-[22%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">CUSTOMIZE</h3>
         {/* container of pill */}
-        <div className="w-[46%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[46%] md:w-[44%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">two</h4>
         </div>
       </div>
       {/* container of 1 number */}
-      <div className="w-[34%] h-[90%] flex shrink-0 items-center justify-between">
+      <div className="w-[34%] md:w-[17%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">APPLY</h3>
         {/* container of pill */}
-        <div className="w-[59%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[59%] md:w-[57%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">three</h4>
         </div>
       </div>
     </div>
 
     <section className=" h-[70%] ml-4 mr-4 relative z-0 flex flex-col">
-      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-[40%] w-[65%] relative bottom-[0.75rem] right-[4rem]"/>
-      <h2 className="font-[Amoresa] text-[2rem] relative bottom-[9.5rem]  ">Shop by Collection</h2>
+      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-[40%] md:h-[50%] w-[65%] md:w-[50%] relative bottom-3 md:bottom-4 right-16 md:right-24 "/>
+      <h2 className="font-[Amoresa] text-[2rem] relative bottom-38 md:bottom-48">Shop by Collection</h2>
       <div className="h-[40%] w-full flex gap-[1.5rem] overflow-auto relative z-10 bottom-[7.5rem] shrink-0">
         <CollectionCard/>
         <CollectionCard/>
@@ -81,9 +82,7 @@ const Home = () => {
     <section className="h-[35%] bg-main-green relative z-10 flex flex-wrap justify-center items-center content-evenly rounded-[1.25rem]">
       <MailingList/>
     </section>
-    <footer>
-      
-    </footer>
+      <Footer/>
    </div>
   )
 }
