@@ -17,33 +17,33 @@ const Home = () => {
    <div className="w-screen h-screen bg-off-white overflow-y-auto overflow-x-hidden flex flex-wrap justify-center ">
     <NavBar/>
     <div className="h-[5%] w-full bg-burgundy flex items-center justify-center">
-      <h4 className="text-off-white text-[0.75rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
+      <h4 className="text-off-white text-[0.75rem] md:text-[1rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
     </div>
     <img src={homeImg} alt="Nails around a vinyl" className="h-[85%] md:h-[98%] w-screen"/>
 
-    {/* container of all numbers */}
-    <div className="h-[8%] w-screen bg-main-green flex items-center justify-center gap-8 relative z-10">
-      {/* container of 1 number */}
-      <div className="w-[50%] max-w-56 md:w-[25%] h-[90%] flex shrink-0 items-center justify-between">
+    {/* container of all steps */}
+    <div className="h-[8%] w-screen bg-main-green flex items-center justify-center gap-8 relative z-10 md:text-[1.125rem]">
+      {/* container of pick your set */}
+      <div className="w-[50%] max-w-56 md:w-[30%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">PICK YOUR SET</h3>
         {/* container of pill */}
-        <div className="w-[40%] md:w-[39%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[40%] md:w-[41%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">one</h4>
         </div>
       </div>
-      {/* container of 1 number */}
-      <div className="w-[44%] max-w-49.5 md:w-[22%] h-[90%] flex shrink-0 items-center justify-between">
+      {/* container of customize */}
+      <div className="w-[44%] max-w-49.5 md:w-[28%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">CUSTOMIZE</h3>
         {/* container of pill */}
-        <div className="w-[46%] md:w-[44%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[46%] md:w-[46%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">two</h4>
         </div>
       </div>
-      {/* container of 1 number */}
-      <div className="w-[34%] max-w-38 md:w-[17%] h-[90%] flex shrink-0 items-center justify-between">
+      {/* container of apply */}
+      <div className="w-[34%] max-w-38 md:w-[20%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">APPLY</h3>
         {/* container of pill */}
-        <div className="w-[59%] md:w-[57%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        <div className="w-[59%] md:w-[60%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
           <h4 className="font-[Merchant] text-main-green font-light">three</h4>
         </div>
       </div>

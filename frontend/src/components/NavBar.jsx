@@ -10,7 +10,7 @@ const NavBar = () => {
             <div className="border-solid border-soft-black border-[1.2px] rounded-lg"></div>
             <div className="border-solid border-soft-black border-[1.2px] rounded-lg"></div>
         </div>
-        <h1 className="text-soft-black font-sugiyama text-[1.25rem] md:text-[1.5rem]">nadydidmynails</h1>
+        <h1 className="text-soft-black font-sugiyama text-[1.25rem] md:text-[1.75rem]">nadydidmynails</h1>
         <img src={cartIcon} alt="Shopping cart" className="w-[7%] max-w-[1.8rem] md:w-[4%] stroke-soft-black"/>
     </nav>
   )
