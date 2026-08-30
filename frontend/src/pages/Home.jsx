@@ -49,35 +49,37 @@ const Home = () => {
       </div>
     </div>
 
-    <section className=" h-[40%] w-full ml-4 md:ml-5 mr-4 md:mr-5 relative z-0 flex flex-col justify-center">
-      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[50%] max-w-68 absolute -top-4 left-0 -translate-x-10 opacity-60 "/>
-      <h2 className="font-[Amoresa] text-[2rem] absolute top-8 md:top-18">Shop by Collection</h2>
-      <div className="h-[50%] max-h-[55%] w-full flex gap-4 overflow-y-hidden  z-10  shrink-0 absolute top-25 md:top-35">
+    <section className=" h-[40%] w-full ml-4 md:ml-5 mr-4 md:mr-5 mb-4 md:mb-5 relative z-0 flex flex-col justify-center">
+      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[50%] max-w-68 absolute -translate-y-30 left-0 -translate-x-10 opacity-60 "/>
+      <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] absolute top-10 ">Shop by Collection</h2>
+      <div className="h-[60%] max-h-[55%] w-full flex gap-4 overflow-y-hidden z-10 shrink-0 absolute top-25 ">
+        <CollectionCard/>
+        <CollectionCard/>
         <CollectionCard/>
         <CollectionCard/>
         <CollectionCard/>
       </div>
       {/* <button type="button" className="bg-brown self-center shrink-0 h-[12%] w-[58%] max-w-57.5 md:w-[40%] font-[Merchant] font-bold text-off-white text-[1rem] rounded-md  z-10 absolute bottom-10 md:bottom-20 shadow-button">Shop the Collection</button> */}
-      <img src={dragonflyImg} alt="Dragonfly" className=" h-auto w-[60%] max-w-[15.7rem] absolute bottom-0 right-0 translate-x-10 opacity-60 "/>
+      <img src={dragonflyImg} alt="Dragonfly" className=" h-auto w-[60%] max-w-62 absolute bottom-0 right-0 translate-x-10 opacity-60 "/>
     </section>
-    <section className="h-[40%] w-full md:h-[45%] md:w-[85%] bg-nails bg-cover bg-clip-content bg-center ml-4 mr-4 mb-4 rounded-md shadow-button relative z-10 md:bottom-3">
+    <section className="h-[40%] w-full md:h-[35%] bg-nails bg-cover bg-clip-content bg-center ml-4 mr-4 mb-4 rounded-md shadow-button relative z-10 ">
       <div className="h-[60%] w-[60%] flex flex-col items-end mt-4 absolute right-3">
-        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">HANDCRAFTED.</h4>
-        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">AFFORDABLE.</h4>
-        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">YOURS.</h4>
-        <button type="button" className="h-[22%] w-[65%] max-w-46 bg-none border-soft-black border-2 rounded-md font-[Merchant] font-regular text-center ">Shop the looks</button>
+        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">HANDCRAFTED.</h4>
+        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">AFFORDABLE.</h4>
+        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">YOURS.</h4>
+        <button type="button" className="h-[22%] w-[65%] max-w-46 bg-none border-soft-black border-2 rounded-md font-[Merchant] font-regular md:text-[1.25rem] text-center md:absolute md:bottom-3 ">Shop the looks</button>
       </div>
     </section>
-    <section className="h-[70%] md:h-[50%] w-full mr-4 ml-4 mb-8 relative flex flex-col items-center">
-      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[65%] max-w-68 absolute top-2 left-0 -translate-x-6 z-0 opacity-60"/>
+    <section className="h-[70%] sm:h-[50%] w-full mr-4 ml-4 mb-4 relative flex flex-col items-center">
+      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[70%] max-w-68 absolute top-2 left-0 -translate-x-6 z-0 opacity-60"/>
       <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] absolute top-10 self-start">Nady's Favs</h2>
-      <div className="h-[80%] w-[90%] absolute top-25 md:top-32 z-10 grid grid-rows-2 grid-cols-2 justify-center gap-2">
+      <div className="h-[80%] sm:h-[60%] w-[90%] max-w-126 sm:w-full sm:max-w-none absolute  top-28 z-10 grid grid-rows-2 grid-cols-2 gap-2 sm:flex sm:justify-left sm:gap-4 sm:overflow-x-auto">
         <ItListCard/>
         <ItListCard/>
         <ItListCard/>
         <ItListCard/>
       </div>
-      {/* <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 absolute -bottom-18 md:-bottom-40 right-0 translate-x-25 z-0 -rotate-17 opacity-60 "/> */}
+      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 absolute top-5 right-0 translate-x-25 z-0 -rotate-17 opacity-60 "/>
     </section>
     <section className="h-[35%] w-full  bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem]">
       <MailingList/>
