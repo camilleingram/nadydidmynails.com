@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="h-[23%] w-full flex flex-wrap content-evenly justify-center text-soft-black ">
+    <footer className="h-[23%] w-full flex flex-wrap content-evenly justify-center text-soft-black">
         <h3 className="w-full h-[25%] text-center font-sugiyama text-[2rem]">nadydidmynails</h3>
         <div className=" w-[80%] max-w-104 h-[35%] flex flex-wrap justify-center items-center text-center font-[Merchant] font-extralight text-[0.875rem]">
             <p className="w-[34%]">contact us</p>
