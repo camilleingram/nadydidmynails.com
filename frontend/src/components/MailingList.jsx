@@ -5,7 +5,7 @@ const MailingList = () => {
     <>
         <div className="justify-items-center self-center md:w-[45%]">
            <h3 className="font-[Amoresa] text-off-white text-[2rem] md:text-[2.125rem] ">Be an Early Bird</h3>
-            <p className="font-[Merchant] font-extralight text-[0.75rem] md:text-[1rem] text-center text-off-white w-[65%] md:w-[80%]">Be the first to know about exclusive deals and new releases by joining our mailing list</p> 
+            <p className="font-[Merchant] font-extralight text-[0.75rem] md:text-[0.875rem] text-center text-off-white w-[65%] md:w-[80%]">Be the first to know about exclusive deals and new releases by joining our mailing list</p> 
         </div>
         
         {/* add action and method attributes */}
