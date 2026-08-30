@@ -50,9 +50,9 @@ const Home = () => {
     </div>
 
     <section className=" h-[40%] w-full ml-4 md:ml-5 mr-4 md:mr-5 mb-4 md:mb-5 relative z-0 flex flex-col justify-center">
-      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[50%] max-w-68 absolute -translate-y-30 left-0 -translate-x-10 opacity-60 "/>
+      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[50%] max-w-68 absolute -translate-y-28 left-0 -translate-x-10 opacity-60 "/>
       <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] absolute top-10 ">Shop by Collection</h2>
-      <div className="h-[60%] max-h-[55%] w-full flex gap-4 overflow-y-hidden z-10 shrink-0 absolute top-25 ">
+      <div className="h-[60%] max-h-[55%] w-full flex gap-4 overflow-y-hidden z-10 shrink-0 absolute top-25 md:top-27 ">
         <CollectionCard/>
         <CollectionCard/>
         <CollectionCard/>
