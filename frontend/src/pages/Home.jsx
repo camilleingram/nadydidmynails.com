@@ -57,7 +57,7 @@ const Home = () => {
     </div>
 
     {/* collection section */}
-    <section className=" w-full px-4 mb-3 z-0 flex flex-col justify-center relative ">
+    <section className=" w-full px-4  z-0 flex flex-col justify-center relative ">
       <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[46%] max-w-68 opacity-60 -mt-2 -ml-10"/>
       <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] -mt-28">Shop by Collection</h2>
       <div className=" flex gap-10 z-10 shrink-0 mt-3 overflow-x-scroll">
@@ -72,13 +72,11 @@ const Home = () => {
     </section>
 
     {/* picture break */}
-    <section className=" mr-5 ml-5 min-h-[20rem] w-[90%] bg-nails bg-cover bg-center rounded-md shadow-button z-10">
-      <div className=" w-[60%] flex flex-col items-end mt-4 ">
-        <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">HANDCRAFTED.</h4>
+    <section className=" mr-5 ml-5 px-4 pt-4 mb-2 -mt-1 min-h-[20rem] w-[90%] bg-nails bg-cover bg-center rounded-md shadow-button z-10 flex flex-col items-end gap-1">
+      <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">HANDCRAFTED.</h4>
         <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">AFFORDABLE.</h4>
         <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">YOURS.</h4>
-        <button type="button" className=" w-[65%] max-w-46 bg-none border-soft-black border-2 rounded-md font-[Merchant] font-regular md:text-[1.25rem] text-center  ">Shop the looks</button>
-      </div>
+        <button type="button" className=" w-[45%] py-1 max-w-46 bg-none border-soft-black border-2 rounded-md font-[Merchant] font-regular md:text-[1.25rem] text-center  ">Shop the looks</button>
     </section>
     {/* <section className="h-[70%] sm:h-[50%] md:h-[45%] w-full mr-4 md:mr-5 ml-4 md:ml-5 mb-4 md:mb-5 relative flex flex-col items-center">
       <img src={longFlowerImg} alt="Long flower" className="h-auto w-[70%] max-w-68 absolute top-2 left-0 -translate-x-6 z-0 opacity-60"/>
