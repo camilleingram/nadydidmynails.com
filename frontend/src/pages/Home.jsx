@@ -21,12 +21,14 @@ const Home = () => {
   return (
    <div className="w-screen min-h-screen bg-off-white overflow-y-auto overflow-x-hidden flex flex-col items-center">
     <NavBar/>
-    {/* <div className="h-[5%] w-full bg-burgundy flex items-center justify-center">
+    {/* coupon banner */}
+    <div className=" py-2 w-full bg-burgundy flex items-center justify-center">
       <h4 className="text-off-white text-[0.75rem] md:text-[1rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
     </div>
-    <img src={homeImg} alt="Nails around a vinyl" className="h-[85%] md:h-[98%] w-screen"/>
+    {/* homepage video */}
+    <img src={homeImg} alt="Nails around a vinyl" className="w-screen"/>
 
-    {/* container of all steps *}
+    {/* {/* container of all steps *}
     <div className="h-[8%] w-screen bg-main-green flex items-center justify-center gap-8 relative z-10 md:text-[1.125rem]">
       {/* container of pick your set *}
       <div className="w-[50%] max-w-56 md:w-[30%] h-[90%] flex shrink-0 items-center justify-between">
