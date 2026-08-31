@@ -19,7 +19,7 @@ const Home = () => {
   }
 });
   return (
-   <div className="w-screen min-h-screen bg-off-white overflow-y-auto overflow-x-hidden flex flex-col items-center">
+   <div className="w-screen min-h-screen bg-off-white overflow-y-auto overflow-x-visible flex flex-col items-center">
     <NavBar/>
     {/* coupon banner */}
     <div className=" py-2 w-full bg-burgundy flex items-center justify-center">
@@ -27,36 +27,36 @@ const Home = () => {
     </div>
     {/* homepage video */}
     <img src={homeImg} alt="Nails around a vinyl" className="w-screen"/>
-
-    {/* {/* container of all steps *}
-    <div className="h-[8%] w-screen bg-main-green flex items-center justify-center gap-8 relative z-10 md:text-[1.125rem]">
-      {/* container of pick your set *}
-      <div className="w-[50%] max-w-56 md:w-[30%] h-[90%] flex shrink-0 items-center justify-between">
+    
+    {/* container of all steps */}
+    <div className="p-4 w-screen bg-main-green flex items-center justify-end  gap-8 z-10 md:text-[1.125rem]">
+      {/* container of pick your set */}
+      <div className=" w-[55%] max-w-56 md:w-[30%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">PICK YOUR SET</h3>
-        {/* container of pill *}
-        <div className="w-[40%] md:w-[41%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        {/* container of pill */}
+        <div className="py-0.5 w-[40%] md:w-[41%] bg-off-white rounded-[50%] text-center">
           <h4 className="font-[Merchant] text-main-green font-light">one</h4>
         </div>
       </div>
-      {/* container of customize *}
-      <div className="w-[44%] max-w-49.5 md:w-[28%] h-[90%] flex shrink-0 items-center justify-between">
+      {/* container of customize */}
+      <div className="w-[49%] max-w-49.5 md:w-[28%] h-[90%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">CUSTOMIZE</h3>
-        {/* container of pill *}
-        <div className="w-[46%] md:w-[46%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        {/* container of pill */}
+        <div className=" py-0.5 w-[46%] md:w-[46%] bg-off-white rounded-[50%] text-center">
           <h4 className="font-[Merchant] text-main-green font-light">two</h4>
         </div>
       </div>
-      {/* container of apply *}
-      <div className="w-[34%] max-w-38 md:w-[20%] h-[90%] flex shrink-0 items-center justify-between">
+      {/* container of apply */}
+      <div className="w-[37%] max-w-38 md:w-[20%] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light">APPLY</h3>
-        {/* container of pill *}
-        <div className="w-[59%] md:w-[60%] h-[55%] bg-off-white rounded-[50%] flex items-center justify-center ">
+        {/* container of pill */}
+        <div className="p-[2.5px] w-[59%] md:w-[60%] bg-off-white rounded-[50%] text-center ">
           <h4 className="font-[Merchant] text-main-green font-light">three</h4>
         </div>
       </div>
     </div>
 
-    <section className=" h-[40%] md:h-[35%] w-full ml-4 md:ml-5 mr-4 md:mr-5 mb-4 md:mb-5 relative z-0 flex flex-col justify-center">
+    {/* <section className=" h-[40%] md:h-[35%] w-full ml-4 md:ml-5 mr-4 md:mr-5 mb-4 md:mb-5 relative z-0 flex flex-col justify-center">
       <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[50%] max-w-68 absolute -translate-y-20 left-0 -translate-x-10 opacity-60 "/>
       <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] absolute top-10 ">Shop by Collection</h2>
       <div className="h-[60%] w-full flex gap-4 overflow-y-hidden z-10 shrink-0 absolute top-25 md:top-27 ">
