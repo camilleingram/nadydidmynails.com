@@ -78,18 +78,18 @@ const Home = () => {
         <h4 className="font-[Merchant] text-soft-black font-bold text-right text-[1.625rem] md:text-[2rem] text-shadow-[0_9px_4px_rgba(0_0_0/_0.7)]">YOURS.</h4>
         <button type="button" className=" w-[45%] py-1 max-w-46 bg-none border-soft-black border-2 rounded-md font-[Merchant] font-regular md:text-[1.25rem] text-center  ">Shop the looks</button>
     </section>
-    {/* <section className="h-[70%] sm:h-[50%] md:h-[45%] w-full mr-4 md:mr-5 ml-4 md:ml-5 mb-4 md:mb-5 relative flex flex-col items-center">
-      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[70%] max-w-68 absolute top-2 left-0 -translate-x-6 z-0 opacity-60"/>
-      <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] absolute top-10 self-start">Nady's Favs</h2>
-      <div className="h-[80%] sm:h-[60%] md:h-[65%] w-[90%] max-w-126 sm:w-full sm:max-w-none absolute  top-28 z-10 grid grid-rows-2 grid-cols-2 gap-2 sm:flex sm:justify-left sm:gap-4 sm:overflow-x-auto">
+    <section className=" w-[90%] mr-4 ml-4 flex flex-col items-center">
+      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68  opacity-60 -ml-50"/>
+      <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] self-start -mt-88">Nady's Favs</h2>
+      <div className="w-[90%] max-w-126 z-10 grid grid-rows-2 grid-cols-2 gap-2 sm:flex sm:justify-left sm:gap-4 sm:overflow-x-auto mt-2">
         <ItListCard/>
         <ItListCard/>
         <ItListCard/>
         <ItListCard/>
       </div>
-      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 absolute top-5 right-0 translate-x-25 z-0 -rotate-17 opacity-60 "/>
+      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 rotate-17 scale-x-[-1] opacity-60 -mt-80 -mr-40"/>
     </section>
-    <section className="h-[35%] md:h-[25%] w-full  bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem]">
+    {/* <section className="h-[35%] md:h-[25%] w-full  bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem]">
       <MailingList/>
     </section>
     <Footer/> */}
