@@ -89,10 +89,10 @@ const Home = () => {
       </div>
       <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 rotate-17 scale-x-[-1] opacity-60 -mt-80 -mr-40"/>
     </section>
-    {/* <section className="h-[35%] md:h-[25%] w-full  bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem]">
+    <section className="w-full py-8 bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem] -mt-8">
       <MailingList/>
     </section>
-    <Footer/> */}
+    <Footer/>
    </div>
   )
 }
