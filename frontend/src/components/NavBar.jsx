@@ -4,8 +4,8 @@ import cartIcon from "../assets/cart-icon.svg"
 
 const NavBar = () => {
   return (
-    <nav className="p-5 w-screen  flex items-center justify-between sticky z-20 bg-off-white shrink-0">
-        <div className="w-[8%] max-w-8 md:w-[5%] flex flex-col jusitfy-center gap-1">
+    <nav className="p-5 w-full flex items-center justify-between fixed top-0 left-0 z-20 bg-off-white shrink-0">
+        <div className="w-[8%] max-w-8 md:w-[5%] flex flex-col gap-1">
             <div className="border-solid border-soft-black border-[1.2px] rounded-lg"></div>
             <div className="border-solid border-soft-black border-[1.2px] rounded-lg"></div>
             <div className="border-solid border-soft-black border-[1.2px] rounded-lg"></div>

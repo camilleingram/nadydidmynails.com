@@ -19,17 +19,17 @@ const Home = () => {
   }
 });
   return (
-   <div className="w-screen min-h-screen bg-off-white overflow-y-auto overflow-x-hidden flex flex-col items-center">
+   <div className="w-screen min-h-screen bg-off-white overflow-y-auto flex flex-col items-center relative">
     <NavBar/>
     {/* coupon banner */}
-    <div className=" py-2 w-full bg-burgundy flex items-center justify-center">
+    <div className=" py-2 w-full mt-[4.5rem] bg-burgundy flex items-center justify-center">
       <h4 className="text-off-white text-[0.75rem] md:text-[1rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
     </div>
     {/* homepage video */}
-    <img src={homeImg} alt="Nails around a vinyl" className="w-screen"/>
+    <img src={homeImg} alt="Nails around a vinyl" className=" w-full"/>
     
     {/* container of all steps */}
-    <div className="p-4 w-full bg-main-green flex items-center justify-center  gap-8 z-10 md:text-[1.125rem]">
+    <div className="p-4 w-full bg-main-green flex items-center justify-center  gap-8 z-10 md:text-[1.125rem] overflow-x-hidden">
       {/* container of pick your set */}
       <div className=" w-[55%] max-w-[13.5rem] flex shrink-0 items-center justify-between">
         <h3 className="font-[Merchant] text-off-white font-light text-nowrap">PICK YOUR SET</h3>
@@ -57,10 +57,10 @@ const Home = () => {
     </div>
 
     {/* collection section */}
-    <section className=" w-full px-4  z-0 flex flex-col justify-center relative ">
-      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[46%] max-w-68 opacity-60 -mt-2 -ml-10"/>
-      <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] -mt-28">Shop by Collection</h2>
-      <div className=" flex gap-10 z-10 shrink-0 mt-3 overflow-x-scroll">
+    <section className=" w-full px-4  z-0 flex flex-col justify-center overflow-x-hidden">
+      <img src={hawaiianFlowerImg} alt="Hawaiian Flower" className=" h-auto w-[46%] max-w-[16rem] opacity-60 -mt-2 -ml-10 relative z-0"/>
+      <h2 className="font-[Amoresa] text-[2rem] md:text-[2.25rem] -mt-[30%] sm:-mt-[28%] relative z-10">Shop by Collection</h2>
+      <div className=" flex gap-10 relative z-10 shrink-0 mt-3 overflow-x-scroll">
         <CollectionCard/>
         <CollectionCard/>
         <CollectionCard/>
@@ -68,7 +68,7 @@ const Home = () => {
         <CollectionCard/>
       </div>
       {/* <button type="button" className="bg-brown self-center shrink-0 h-[12%] w-[58%] max-w-57.5 md:w-[40%] font-[Merchant] font-bold text-off-white text-[1rem] rounded-md  z-10 absolute bottom-10 md:bottom-20 shadow-button">Shop the Collection</button> */}
-      <img src={dragonflyImg} alt="Dragonfly" className=" h-auto w-[45%] max-w-68 -mt-28 ml-55"/>
+      <img src={dragonflyImg} alt="Dragonfly" className=" h-auto w-[45%] max-w-[16rem]  self-end -mr-10 -mt-[30%] sm:-mt-[25%] relative z-0"/>
     </section>
 
     {/* picture break */}
@@ -87,9 +87,9 @@ const Home = () => {
         <ItListCard/>
         <ItListCard/>
       </div>
-      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 rotate-17 scale-x-[-1] opacity-60 -mt-80 -mr-40"/>
+      <img src={longFlowerImg} alt="Long flower" className="h-auto w-[60%] max-w-68 rotate-17 scale-x-[-1] opacity-60 -mt-80"/>
     </section>
-    <section className="w-full py-8 bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem] -mt-8">
+    <section className="w-screen min-h-[15rem] bg-main-green z-10 flex flex-wrap md:flex-row justify-center items-center md:gap-10 content-evenly rounded-[1.25rem] -mt-8">
       <MailingList/>
     </section>
     <Footer/>
