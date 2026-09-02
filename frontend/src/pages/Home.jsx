@@ -20,11 +20,13 @@ const Home = () => {
 });
   return (
    <div className="w-screen min-h-screen bg-off-white overflow-x-clip flex flex-col items-center relative">
-    <NavBar/>
+
     {/* coupon banner */}
     <div className=" py-2 md:py-3 w-full bg-burgundy flex items-center justify-center">
       <h4 className="text-off-white text-[0.75rem] md:text-[1rem] font-[Merchant] font-extralight ">GET 10% OFF YOUR PURCHASE USE CODE NDMNLAUNCH</h4>
     </div>
+    <NavBar/>
+    
     {/* homepage video */}
     <img src={homeImg} alt="Nails around a vinyl" className=" w-full h-[90vh]"/>
     
